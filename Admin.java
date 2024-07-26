@@ -1,6 +1,9 @@
 Class Admin extends User {
 
-    private 
+    public void CreateUser() {
+        // Create user
+    }
+    
     private void ExportReport(List<User> users) {
         // Export report
     }
