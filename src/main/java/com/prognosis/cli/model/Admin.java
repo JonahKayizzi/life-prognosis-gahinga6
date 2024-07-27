@@ -1,4 +1,7 @@
-Class Admin extends User {
+package com.prognosis.cli.model;
+import java.util.List;
+
+public class Admin extends User {
 
     public void CreateUser() {
         // Create user

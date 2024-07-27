@@ -1,0 +1,5 @@
+com\prognosis\cli\model\Patient.class
+com\prognosis\cli\model\User$Role.class
+com\prognosis\cli\model\Admin.class
+com\prognosis\cli\App.class
+com\prognosis\cli\model\User.class
