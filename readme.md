@@ -5,7 +5,7 @@
   <img src="doctors Icon.png" alt="logo" width="140"  height="auto" />
   <br/>
 
-  <h3><b>Doctors Reservations Back-End</b></h3>
+  <h3><b>Life Prognosis CLI</b></h3>
 
 </div>
 
