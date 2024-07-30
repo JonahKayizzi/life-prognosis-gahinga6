@@ -1,0 +1,2 @@
+email	uuid	password
+admin		admin
