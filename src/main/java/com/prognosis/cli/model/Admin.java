@@ -27,14 +27,7 @@ public class Admin extends User {
         return numOfUsers;
     }
 
-    public static String createUser() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter user's email address ");
-        String email = scanner.nextLine();
-
-        scanner.close();
-
+    public static String createUser(String email) {
         Integer usersCount = Admin.countUsers();
         Integer nextUserId = ++usersCount;
         String code = UUID.randomUUID().toString();
