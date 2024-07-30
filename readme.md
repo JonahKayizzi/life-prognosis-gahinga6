@@ -92,7 +92,7 @@ mvn package
 Use Java to run the JAR file
 
 ```sh
- java -jar .\target\cli-1.0-SNAPSHOT.jar
+ java -jar ./target/cli-1.0-SNAPSHOT.jar
 ```
 
 ### Run tests
