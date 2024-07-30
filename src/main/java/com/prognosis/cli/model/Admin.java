@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
+import java.util.Scanner;
 
 public class Admin extends User {
 
@@ -26,8 +27,14 @@ public class Admin extends User {
         return numOfUsers;
     }
 
-    public static String createUser(String email) {
-        // Create user
+    public static String createUser() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter user's email address ");
+        String email = scanner.nextLine();
+
+        scanner.close();
+
         Integer usersCount = Admin.countUsers();
         Integer nextUserId = ++usersCount;
         String code = UUID.randomUUID().toString();
