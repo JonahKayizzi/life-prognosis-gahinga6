@@ -1,34 +1,13 @@
 package com.prognosis.cli.model;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
-import java.util.Scanner;
+
+import com.prognosis.cli.repository.AdminRepository;
+
 
 public class Admin extends User {
-
-    private static Integer countUsers () {
-        // Create user
-        String[] command = {"bash", "-c", String.format("wc -l < \"user-store.txt\"")};
-
-        Integer numOfUsers = 0;
-
-        try{
-            Process process = Runtime.getRuntime().exec(command);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line =  reader.readLine();
-            numOfUsers = Integer.parseInt(line.trim());
-
-        }catch  (Exception e) {
-            e.printStackTrace();
-        }
-
-        return numOfUsers;
-    }
-
     public static String createUser(String email) {
-        Integer usersCount = Admin.countUsers();
+        Integer usersCount = AdminRepository.countUsers();
         Integer nextUserId = ++usersCount;
         String code = UUID.randomUUID().toString();
         
