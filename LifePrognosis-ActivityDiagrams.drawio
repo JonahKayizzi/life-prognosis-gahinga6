@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="5ADV3Nt3Yf_c5sIbEpJ-" name="ActivityDiagram">
-        <mxGraphModel dx="467" dy="300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1139" dy="719" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -94,7 +94,7 @@
                         <mxPoint x="490" y="640" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="SUqyX6ZWO_V6x3E6NFx7-28" value="Download ics" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="SUqyX6ZWO_V6x3E6NFx7-28" value="Download iCalendar" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="210" y="650" width="100" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="SUqyX6ZWO_V6x3E6NFx7-30" value="View Patient Information" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
