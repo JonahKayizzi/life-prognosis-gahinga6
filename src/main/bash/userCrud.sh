@@ -9,17 +9,20 @@ salt=$(openssl rand -base64 6)
 email="jkayizzi@andrew.cmu.edu"
 
 #register user profile
-password="123"
-stored_hashed_password=$(openssl passwd -1 -salt "$salt" "$password")
-echo "Stored hashed password is:  $stored_hashed_password"
+create_user(){
+    password="123"
+    stored_hashed_password=$(openssl passwd -1 -salt "$salt" "$password")
+    echo "$email $stored_hashed_password" >> user_store.txt
+}
 
 #Login user
 login_user() {
     username=$1
     password=$2
-    salt=$(openssl rand -base64 6)
-    hashed_password=$(openssl passwd -1 "$salt" "$password")
-    echo "Username: $username, Hashed Password: $hashed_password"
+    hashed_password=$(openssl passwd -1 -salt "$salt" "$password")
+    if grep -q "$hashed_password" user_store.txt; then
+        echo "Successful login"
+    else
+        echo "Login unsuccessful"
+    fi
 }
-
-login_user jkayizzi 123
