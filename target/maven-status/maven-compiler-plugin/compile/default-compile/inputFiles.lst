@@ -3,4 +3,5 @@
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/model/Patient.java
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/model/User.java
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/repository/AdminRepository.java
+/Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/repository/BaseRepository.java
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/service/UserService.java

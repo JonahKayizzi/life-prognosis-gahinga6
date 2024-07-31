@@ -11,12 +11,10 @@ public class BaseRepository {
 
        
         try{
-            Process process = Runtime.getRuntime().exec(String.format("%s/%s %s",System.getProperty("user.dir"), fileName, argString));
+            Process process = Runtime.getRuntime().exec(String.format("%s/scripts/%s %s",System.getProperty("user.dir"), fileName, argString));
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             line =  reader.readLine();
-           
-          
 
         } catch  (Exception e) {
             e.printStackTrace();
