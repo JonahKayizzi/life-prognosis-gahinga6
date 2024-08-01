@@ -1,5 +1,7 @@
 package com.prognosis.cli;
 
+import com.prognosis.cli.controller.AdminController;
+import com.prognosis.cli.controller.UserController;
 import com.prognosis.cli.utils.BashRunner;
 
 public class App {
@@ -11,9 +13,9 @@ public class App {
             UserController userController = new UserController();
             AdminController adminController = new AdminController();
 
-            private final BashRunner bashRunner = new BashRunner();
+            final BashRunner bashRunner = new BashRunner();
 
-            this.bashRunner.execute("create_a   dmin.sh", null);
+            bashRunner.execute("create_admin.sh", null);
             int choice = Integer.parseInt(System.console().readLine());
             switch (choice) {
                 case 1 -> userController.login();

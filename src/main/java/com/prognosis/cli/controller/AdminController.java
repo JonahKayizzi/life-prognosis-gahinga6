@@ -1,19 +1,17 @@
 package com.prognosis.cli.controller;
 
 import com.prognosis.cli.service.AdminService;
-import com.prognosis.cli.view.UserView;
+import com.prognosis.cli.view.AdminView;
 
 public class AdminController {
     
     AdminService adminService = new AdminService();
+    AdminView adminView = new AdminView();
 
-    private UserView userView() {
-        return new UserView();
-    }
 
     public void register() {
-        String email = userView().promptUserEmail();
-        Integer number = adminService.countUsers();
-        System.out.println(number);
+        String email = adminView.promptUserEmail();
+        String code  = adminService.createUser(email);
+        adminView.displayCode(code);
     }
 }

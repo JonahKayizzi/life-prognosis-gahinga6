@@ -1,0 +1,1 @@
+echo "1, admin@life-prognosis.com" > "$PWD/user-store.txt"

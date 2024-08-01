@@ -1,17 +1,2 @@
-1, Thomas Seleshi, 24
-2, John, ca3fa2b9-01a0-45f0-97d7-9b43744ac0ad
-3, John, d5659999-90a5-4b93-9263-2493a1ebcd31
-4, John, 48ffa31b-affb-4057-8b5b-1eb5670e4f4a
-5, John, 1224b104-3080-4419-9361-42ff79ce025b
-6, thomas@gmail.com, ad9b49c8-0d04-4191-9c91-88c3db1b3959
-7, test@gmail.com, 27dd1bf0-ba91-448f-917e-eb4d1e824e44
-8, tom@gmail.com, afb083bd-3974-4408-8dba-0377dad8f555
-9, kkk, 63ab6e6f-c75e-419b-b929-7e932a2e967b
-10, kkkk, ee56ef54-548b-40e5-aa2b-bb58baa23c13
-11, kkkkk, e24ce602-ab94-4267-810e-4f1d87f6cb21
-12, knj, 3d96d207-c28a-4df9-b7bc-bcb54d27c828
-13, klll, 7d12af06-9dd0-4189-834a-d17d6163b30d
-14, klmkl, 3af24376-ca87-4804-8ff7-b49889c29612
-15, llllllll00000l, f84b6fe4-ccf5-4f51-a8ce-4524c031b038
-16, yyy, 18eadceb-cd72-4eb6-8f35-02db18faa08a
-17, sdjfnsdkjfs, 36791d6c-0dea-4d5f-9a83-307d43ae343c
+1, admin@life-prognosis.com
+2, dfghbjn, eaf0dc91-9bbd-4490-bde3-2ff43064b2e6
