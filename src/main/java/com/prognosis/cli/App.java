@@ -3,6 +3,7 @@ package com.prognosis.cli;
 import java.util.Scanner;
 
 import com.prognosis.cli.model.Admin;
+import com.prognosis.cli.service.AdminService;
 
 public class App {
     public static void main(String[] args) {
@@ -11,9 +12,11 @@ public class App {
         String email = scanner.nextLine();
         scanner.close();
 
-        String code = Admin.createUser(email);
+        AdminService adminService =  new AdminService();
 
-        String message = String.format("Use this code to register: %s", code);
-        System.out.println(message);
+        Integer number = adminService.countUsers();
+
+        // String message = String.format("Use this code to register: %s", code);
+        System.out.println(number);
     }
 }
