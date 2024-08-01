@@ -1,5 +1,7 @@
 package com.prognosis.cli;
 
+import java.util.UUID;
+
 import com.prognosis.cli.controller.AdminController;
 import com.prognosis.cli.controller.PatientController;
 import com.prognosis.cli.controller.UserController;
@@ -16,8 +18,9 @@ public class App {
             PatientController patientController = new PatientController();
 
             final BashRunner bashRunner = new BashRunner();
-
-            // bashRunner.execute("create_admin.sh", null);
+            String code = UUID.randomUUID().toString();
+            bashRunner.execute("create_admin.sh", new String[] { code });
+            
             int choice = Integer.parseInt(System.console().readLine());
             switch (choice) {
                 case 1 -> userController.login();
