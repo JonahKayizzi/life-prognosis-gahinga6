@@ -25,6 +25,7 @@ public class App {
     }
 
     private void welcomeMenu() {
+        System.out.flush();
         System.out.println("Welcome to Prognosis CLI");
         System.out.println("1. Login");
         System.out.println("2. Create User");
