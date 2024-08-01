@@ -20,12 +20,7 @@ public class AdminService {
         String code = UUID.randomUUID().toString();
 
         String[] args = { nextUserId, email, code };
-
-        try{
-          this.bashRunner.execute("create_user.sh", args);
-        }catch  (Exception e) {
-            e.printStackTrace();
-        }
+        this.bashRunner.execute("create_user.sh", args);
 
         return code;
     }
