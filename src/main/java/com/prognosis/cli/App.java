@@ -1,22 +1,33 @@
 package com.prognosis.cli;
 
-import java.util.Scanner;
-
-import com.prognosis.cli.model.Admin;
-import com.prognosis.cli.service.AdminService;
+import com.prognosis.cli.utils.BashRunner;
 
 public class App {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter user's email address:");
-        String email = scanner.nextLine();
-        scanner.close();
+        do {
+            App app = new App();
+            app.welcomeMenu();
 
-        AdminService adminService =  new AdminService();
+            UserController userController = new UserController();
+            AdminController adminController = new AdminController();
 
-        Integer number = adminService.countUsers();
+            private final BashRunner bashRunner = new BashRunner();
 
-        // String message = String.format("Use this code to register: %s", code);
-        System.out.println(number);
+            this.bashRunner.execute("create_a   dmin.sh", null);
+            int choice = Integer.parseInt(System.console().readLine());
+            switch (choice) {
+                case 1 -> userController.login();
+                case 2 -> adminController.register();
+                case 3 -> System.exit(0);
+                default -> System.out.println("Invalid choice");
+            }
+        } while (true);
+    }
+
+    private void welcomeMenu() {
+        System.out.println("Welcome to Prognosis CLI");
+        System.out.println("1. Login");
+        System.out.println("2. Register");
+        System.out.println("3. Exit");
     }
 }

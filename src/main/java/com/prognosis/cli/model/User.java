@@ -9,8 +9,6 @@ public class User {
 
     // Properties
     private int id;
-    private String firstName;
-    private String lastName;
     private String email;
     private String password;
     private String code;
@@ -19,10 +17,8 @@ public class User {
         // Constructor
     }
 
-    public User(int id, String firstName, String lastName, String email, String password, String code) {
+    public User(int id, String email, String password, String code) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.code = code;
@@ -35,22 +31,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -76,5 +56,4 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
-
 }
