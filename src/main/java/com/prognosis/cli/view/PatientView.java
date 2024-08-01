@@ -12,8 +12,8 @@ public class PatientView {
     }
 
     public String promptPassword() {
-        System.out.println("Enter your email:");
-        return System.console().readLine();
+        System.out.println("Enter your Password:");
+        return new String(System.console().readPassword());
     }
 
     public String promptFirstName() {

@@ -23,5 +23,5 @@ if [ -n "$user_record" ]; then
     fi
 #if record does not exist
 else
-    echo "Login unsuccessful"
+    echo "error"
 fi

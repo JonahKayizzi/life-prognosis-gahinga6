@@ -38,5 +38,6 @@ public class PatientController {
         Patient patient = new Patient(id, Role.PATIENT, email, code, password, firstName, lastName, dateOfBirth, hivStatus, dateOfDiagnosis, isOnART, artStartDate, country);
 
         patientService.registerUser(patient);
+        System.exit(0);
     }
 }
