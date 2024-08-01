@@ -5,7 +5,9 @@ import com.prognosis.cli.view.UserView;
 
 public class UserController {
     
-    private User userModel;
+    private User user() {
+        return new User();
+    }
 
     private UserView userView() {
         return new UserView();
@@ -14,18 +16,23 @@ public class UserController {
     public void login() {  
         String email = userView().promptUserEmail();
         String password = userView().promptUserPassword();
-
+        String loginStatus = user.loginUser(email, password);
          // Validate user input
-         if ("admin".equals(userModel.loginUser(email, password))) {
-            // Login successful, display welcome message
-            userView().displayAdminOptions();
-        } else if ("error".equals(userModel.loginUser(email, password))) {
-            // Login failed, display error message
-            userView().displayErrorMessage("Invalid credentials");
-        } else {
-            // Login successful, display welcome message
-            userView().displayUserOptions();
+        switch (loginStatus) {
+            case "admin":
+                 // Login successful, display welcome message
+                userView().displayAdminOptions();
+                break;
+            case "error":
+                // Login failed, display error message
+                userView().displayErrorMessage("Invalid credentials");
+                break;
+            default:
+                // Login successful, display welcome message
+                userView().displayUserOptions();
+                break;
         }
+
 
     }
 

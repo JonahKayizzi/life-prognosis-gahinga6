@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/App.java
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/model/Admin.java
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/model/Patient.java
@@ -5,3 +6,13 @@
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/service/AdminService.java
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/service/UserService.java
 /Users/macmini/Desktop/life-prognosis-gahinga6/src/main/java/com/prognosis/cli/utils/BashRunner.java
+=======
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\App.java
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\controller\user.java
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\controller\UserController.java
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\model\Admin.java
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\model\Patient.java
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\model\User.java
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\service\UserService.java
+D:\CMU\life-prognosis-gahinga6\src\main\java\com\prognosis\cli\view\UserView.java
+>>>>>>> 7208a84 (Separate login functionality to a separate bash file)
