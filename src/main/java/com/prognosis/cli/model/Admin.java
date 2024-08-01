@@ -1,12 +1,7 @@
 package com.prognosis.cli.model;
 import java.util.List;
 
-public class Admin extends User {
-
-    public void CreateUser() {
-        // Create user
-    }
-    
+public class Admin extends User {    
     private void ExportReport(List<User> users) {
         // Export report
     }
