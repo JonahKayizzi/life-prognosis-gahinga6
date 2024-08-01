@@ -1,13 +1,11 @@
 package com.prognosis.cli.controller;
 
-import com.prognosis.cli.model.User;
+import com.prognosis.cli.service.UserService;
 import com.prognosis.cli.view.UserView;
 
 public class UserController {
     
-    private User user() {
-        return new User();
-    }
+    UserService userService = new UserService();
 
     private UserView userView() {
         return new UserView();
@@ -16,7 +14,7 @@ public class UserController {
     public void login() {  
         String email = userView().promptUserEmail();
         String password = userView().promptUserPassword();
-        String loginStatus = user.loginUser(email, password);
+        String loginStatus = userService.loginUser(email, password);
          // Validate user input
         switch (loginStatus) {
             case "admin":
