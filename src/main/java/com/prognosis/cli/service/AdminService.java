@@ -11,6 +11,7 @@ public class AdminService {
 
     public Integer countUsers(){
       String output = this.bashRunner.execute("count_users.sh", null);
+      // System.out.println(output);
       Integer numOfUsers = Integer.parseInt(output.trim());
       return numOfUsers;
     }
