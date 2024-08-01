@@ -1,5 +1,9 @@
 package com.prognosis.cli.model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class User {
 
     // Enum for role
@@ -9,8 +13,6 @@ public class User {
 
     // Properties
     private int id;
-    private String firstName;
-    private String lastName;
     private String email;
     private String password;
     private String code;
@@ -19,10 +21,8 @@ public class User {
         // Constructor
     }
 
-    public User(int id, String firstName, String lastName, String email, String password, String code) {
+    public User(int id, String email, String password, String code) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.code = code;
@@ -35,22 +35,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -76,5 +60,26 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
+
+    public String loginUser(String username, String password) {
+        StringBuilder result = new StringBuilder();
+        // Implement actual user validation logic
+        try {
+            // Execute the login_user method from the userCrud.sh script
+            Process process = Runtime.getRuntime().exec(new String[] {"bash", "userCrud.sh", "login_user", username, password});
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while((line = reader.readLine()) != null) {
+                result.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            // Handle exception
+            System.err.println("Error executing script: " + e.getMessage());
+        }
+
+        return result.toString();
+    }
+
 
 }

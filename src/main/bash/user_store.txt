@@ -1,4 +1,2 @@
-1 admin admin $1$trtHdofg$4vwD8JYx86mVuCxJs8FVM/
-2 patient jkayizzi $1$trtHdofg$foOfLYf6ywaRkgIGSch9L0
-3 patient jkayizzi $1$trtHdofg$xBQEu3hg0.Dxf9FvR7rAe/
-4 patient jonah $1$trtHdofg$xBQEu3hg0.Dxf9FvR7rAe/
+1 admin admin $1$Zdxyn1hq$FuDS56NFM3klDtF3qdCAL.
+2 patient thomas $1$Zdxyn1hq$je819/ZRhO06VcoSWf7Pp.
