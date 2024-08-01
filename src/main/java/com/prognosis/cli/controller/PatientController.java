@@ -1,7 +1,5 @@
 package com.prognosis.cli.controller;
 
-import java.util.Date;
-
 import com.prognosis.cli.model.Patient;
 import com.prognosis.cli.model.User.Role;
 import com.prognosis.cli.service.PatientService;
