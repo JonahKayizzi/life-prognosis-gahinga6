@@ -1,7 +1,5 @@
 package com.prognosis.cli.view;
 
-import java.util.Date;
-
 public class PatientView {
     public String promptEmail() {
         System.out.println("Enter your email:");
@@ -28,35 +26,30 @@ public class PatientView {
         return System.console().readLine();
     }
 
-    public Date promptDateOfBirth() {
+    public String promptDateOfBirth() {
         System.out.println("Enter your date of birth:");
-        // return System.console().readLine();\
-        return new Date();
+        return System.console().readLine();
     }
 
-    public Boolean promptHivStatus() {
+    public String promptHivStatus() {
         System.out.println("Enter your HIV status:");
-        // return System.console().readLine();
-        return false;
+        return System.console().readLine();
     }
 
-    public Date promptDateOfDiagnosis() {
+    public String promptDateOfDiagnosis() {
         System.out.println("Enter your date of diagnosis:");
-        // return System.console().readLine();
-        return new Date();
+        return System.console().readLine();
     }
 
 
-    public Boolean promptIsOnART() {
+    public String promptIsOnART() {
         System.out.println("Are you taking anti retro viral drugs:");
-        // return System.console().readLine();
-        return false;
+        return System.console().readLine();
     }
 
-    public Date promptArtStartDate() {
+    public String promptArtStartDate() {
         System.out.println("Enter the date you started taking  anti retro viral drugs:");
-        // return System.console().readLine();
-        return  new Date();
+        return System.console().readLine();
     }
 
     public String promptCountry() {

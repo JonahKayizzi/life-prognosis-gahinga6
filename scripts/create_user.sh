@@ -1,1 +1,1 @@
-echo "$1, $2, $3" >> "$PWD/user-store.txt"
+echo "$1 $2 $3 $4" >> "$PWD/user-store.txt"

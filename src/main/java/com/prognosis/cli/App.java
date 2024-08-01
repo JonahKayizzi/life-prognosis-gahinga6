@@ -17,7 +17,7 @@ public class App {
 
             final BashRunner bashRunner = new BashRunner();
 
-            bashRunner.execute("create_admin.sh", null);
+            // bashRunner.execute("create_admin.sh", null);
             int choice = Integer.parseInt(System.console().readLine());
             switch (choice) {
                 case 1 -> userController.login();

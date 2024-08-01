@@ -5,21 +5,20 @@ import com.prognosis.cli.utils.BashRunner;
 public class PatientService {
     private final BashRunner bashRunner = new BashRunner();
 
-    public Integer validateCode(String email, String code) {
+    public String validateCode(String email, String code) {
         String[] args = { email, code };
-        // this.bashRunner.execute("create_user.sh", args);
+        String id = this.bashRunner.execute("verify_user.sh", args);
 
-        return 3;
+        if(id == "0"){
+            throw new Error("Wrong code");
+        }
+
+        return id;
     }
 
 
     public void registerUser(Patient patient) {
-        String[] args = { patient.firstName, patient.lastName, patient.email, patient.code, patient.password };
-        // this.bashRunner.execute("", args);
-
+        String[] args = { patient.password, patient.firstName, patient.lastName, patient.dateOfBirth, patient.hivStatus,patient.dateOfDiagnosis, patient.isOnART, patient.artStartDate, patient.country, patient.id};
+        this.bashRunner.execute("register_patient.sh", args);
     }
-
-
-
-
 }

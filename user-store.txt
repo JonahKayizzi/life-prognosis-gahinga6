@@ -1,4 +1,3 @@
-1, admin@life-prognosis.com
-2, dfghbjn, eaf0dc91-9bbd-4490-bde3-2ff43064b2e6
-3, ddsf, 88ee5711-f030-4627-a0ed-01734dbd0cce
-4, fgfg, 4e92098c-2e71-4bc5-ad07-5e55e8e8fbab
+1 admin admin $1$tEIJEjPc$VjZo6bHbKOx5XwxcEsCNE.
+2 PATIENT sdfsdfs 55668742-a643-442e-bab5-e25ba5565cc7
+3 PATIENT ttt 3e21b2e5-0901-49ec-b15a-966fd27d3679

@@ -16,17 +16,16 @@ public class PatientController {
         String email = patientView.promptEmail();
         String code = patientView.promptCode();
 
-       Integer id =  patientService.validateCode(email, code);
-
+        String id =  patientService.validateCode(email, code);
 
         String firstName = patientView.promptFirstName();
         String lastName = patientView.promptLastName();
-        Date dateOfBirth = patientView.promptDateOfBirth();
+        String dateOfBirth = patientView.promptDateOfBirth();
         String password = patientView.promptPassword();
-        Boolean hivStatus = patientView.promptHivStatus();
-        Boolean isOnART = patientView.promptIsOnART();
-        Date artStartDate = patientView.promptArtStartDate();
-        Date dateOfDiagnosis = patientView.promptDateOfDiagnosis();
+        String hivStatus = patientView.promptHivStatus();
+        String isOnART = patientView.promptIsOnART();
+        String artStartDate = patientView.promptArtStartDate();
+        String dateOfDiagnosis = patientView.promptDateOfDiagnosis();
         String country = patientView.promptCountry();
 
         Patient patient = new Patient(id, Role.PATIENT, email, code, password, firstName, lastName, dateOfBirth, hivStatus, dateOfDiagnosis, isOnART, artStartDate, country);
