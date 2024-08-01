@@ -13,10 +13,12 @@ if [ -n "$user_record" ]; then
     user_type=$(echo "$user_record" | awk '{print $2}')
     # if user type is admin
     if [ "$user_type" == "admin" ]; then
+        #return admin
         echo "admin"
     #if it is a patient
     else
         user_id=$(echo "$user_record" | awk '{print $1}')
+        #return the user id
         echo "$user_id"
     fi
 #if record does not exist
