@@ -6,13 +6,13 @@ import com.prognosis.cli.controller.UserController;
 
 public class App {
     public static void main(String[] args) {
+        UserController userController = new UserController();
+        AdminController adminController = new AdminController();
+        PatientController patientController = new PatientController();
+        App app = new App();
+        app.welcomeMenu();
         do {
-            App app = new App();
-            app.welcomeMenu();
-
-            UserController userController = new UserController();
-            AdminController adminController = new AdminController();
-            PatientController patientController = new PatientController();
+            // bashRunner.execute("create_admin.sh", null);
             int choice = Integer.parseInt(System.console().readLine());
             switch (choice) {
                 case 1 -> userController.login();
