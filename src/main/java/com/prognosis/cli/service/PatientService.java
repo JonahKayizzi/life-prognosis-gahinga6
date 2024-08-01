@@ -9,10 +9,6 @@ public class PatientService {
         String[] args = { email, code };
         String id = this.bashRunner.execute("verify_user.sh", args);
 
-        if(id == "0"){
-            throw new Error("Wrong code");
-        }
-
         return id;
     }
 

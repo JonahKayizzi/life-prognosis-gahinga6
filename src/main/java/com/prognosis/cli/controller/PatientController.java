@@ -18,6 +18,13 @@ public class PatientController {
 
         String id =  patientService.validateCode(email, code);
 
+
+        if(id.equals("0")){
+            System.out.println("Wrong Code");
+            return;
+        }
+        
+
         String firstName = patientView.promptFirstName();
         String lastName = patientView.promptLastName();
         String dateOfBirth = patientView.promptDateOfBirth();
