@@ -10,6 +10,7 @@ public class BashRunner {
 
         for (String arg : args) {
             stringBuilder.append(arg);
+            stringBuilder.append(" ");
         }
 
         return stringBuilder.toString();
@@ -37,19 +38,29 @@ public class BashRunner {
         String argString = args != null ? this.parseArgs(args): "";
         String line = null;
 
-        try{       
-            ProcessBuilder processBuilder = new ProcessBuilder();
-            processBuilder.command("bash", "-c", String.format("%s/scripts/%s %s",System.getProperty("user.dir"), fileName, argString));
-
-            Process process = processBuilder.start();
+        try{
+            Process process = Runtime.getRuntime().exec(String.format("%s/scripts/%s %s",System.getProperty("user.dir"), fileName, argString));
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            line = this.parseOutput(reader);
-           
-            process.waitFor();
+            line =  this.parseOutput(reader);
+
         } catch  (Exception e) {
             e.printStackTrace();
         }
+        
+        // try{       
+        //     ProcessBuilder processBuilder = new ProcessBuilder();
+        //     processBuilder.command("bash", "-c", String.format("%s/scripts/%s %s",System.getProperty("user.dir"), fileName, args[0],  args[1],  args[2] ));
+
+        //     Process process = processBuilder.start();
+
+        //     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        //     line = this.parseOutput(reader);
+           
+        //     process.waitFor();
+        // } catch  (Exception e) {
+        //     e.printStackTrace();
+        // }
 
         return line;
     }  

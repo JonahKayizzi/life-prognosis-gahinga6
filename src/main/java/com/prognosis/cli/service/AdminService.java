@@ -1,5 +1,7 @@
 package com.prognosis.cli.service;
 
+import java.util.UUID;
+
 import com.prognosis.cli.utils.*;;
 
 public class AdminService {
@@ -12,25 +14,20 @@ public class AdminService {
       return numOfUsers;
     }
 
-    // public static String createUser(String email) {
+    public String createUser(String email) {
+        Integer usersCount = this.countUsers();
+        String nextUserId = (++usersCount).toString();
+        String code = UUID.randomUUID().toString();
 
-    //     Integer usersCount = AdminRepository.countUsers();
-    //     String nextUserId = (++usersCount).toString();
-    //     String code = UUID.randomUUID().toString();
+        String[] args = { nextUserId, email, code };
 
-    //     String[] args = { nextUserId, email, code };
-        
+        try{
+          this.bashRunner.execute("create_user.sh", args);
+        }catch  (Exception e) {
+            e.printStackTrace();
+        }
 
-
-    //     // String[] command = {"bash", "-c", String.format("",nextUserId, email, code)};
-
-    //     try{
-    //        AdminRepository.runBashCommand("create_users.sh", args);
-    //     }catch  (Exception e) {
-    //         e.printStackTrace();
-    //     }
-
-    //     return code;
-    // }
+        return code;
+    }
     
 }

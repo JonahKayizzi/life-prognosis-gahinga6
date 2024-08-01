@@ -2,7 +2,6 @@ package com.prognosis.cli;
 
 import java.util.Scanner;
 
-import com.prognosis.cli.model.Admin;
 import com.prognosis.cli.service.AdminService;
 
 public class App {
@@ -14,9 +13,9 @@ public class App {
 
         AdminService adminService =  new AdminService();
 
-        Integer number = adminService.countUsers();
+        String code = adminService.createUser(email);
 
-        // String message = String.format("Use this code to register: %s", code);
-        System.out.println(number);
+        String message = String.format("Use this code to register: %s", code);
+        System.out.println(message);
     }
 }
