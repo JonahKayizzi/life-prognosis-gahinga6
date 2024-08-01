@@ -2,11 +2,12 @@ package com.prognosis.cli.service;
 
 import java.util.UUID;
 
-import com.prognosis.cli.utils.*;;
+
+import com.prognosis.cli.utils.BashRunner;
 
 public class AdminService {
 
-    private BashRunner bashRunner = new BashRunner();
+    private final BashRunner bashRunner = new BashRunner();
 
     public Integer countUsers(){
       String output = this.bashRunner.execute("count_users.sh", null);
