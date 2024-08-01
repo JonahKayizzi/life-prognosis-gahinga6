@@ -2,7 +2,7 @@ package com.prognosis.cli.service;
 
 import java.util.UUID;
 
-
+import com.prognosis.cli.model.User.Role;
 import com.prognosis.cli.utils.BashRunner;
 
 public class AdminService {
@@ -20,7 +20,7 @@ public class AdminService {
         String nextUserId = (++usersCount).toString();
         String code = UUID.randomUUID().toString();
 
-        String[] args = { nextUserId, email, code };
+        String[] args = { nextUserId, Role.PATIENT.toString(), email, code };
         this.bashRunner.execute("create_user.sh", args);
 
         return code;
