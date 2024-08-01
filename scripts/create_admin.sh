@@ -3,7 +3,7 @@
 #crud operations for user management
 
 #global salt to be used for openssl hashing
-salt=$(openssl rand -base64 6)
+salt="salt"
 code=$1
 
 #set static admin password
