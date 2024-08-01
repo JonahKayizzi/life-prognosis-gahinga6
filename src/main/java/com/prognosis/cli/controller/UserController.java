@@ -15,6 +15,9 @@ public class UserController {
         String email = userView().promptUserEmail();
         String password = userView().promptUserPassword();
         String loginStatus = userService.loginUser(email, password);
+
+        System.out.println(loginStatus);
+
          // Validate user input
         switch (loginStatus) {
             case "admin":
