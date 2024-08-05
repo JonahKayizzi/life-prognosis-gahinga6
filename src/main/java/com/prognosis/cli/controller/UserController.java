@@ -1,5 +1,8 @@
 package com.prognosis.cli.controller;
 
+import com.prognosis.cli.model.Admin;
+import com.prognosis.cli.model.Patient;
+import com.prognosis.cli.model.User;
 import com.prognosis.cli.service.UserService;
 import com.prognosis.cli.view.UserView;
 
@@ -14,27 +17,17 @@ public class UserController {
     public void login() {  
         String email = userView().promptUserEmail();
         String password = userView().promptUserPassword();
-        String loginStatus = userService.loginUser(email, password);
+        User loggedUser = userService.loginUser(email, password);
 
-        System.out.println(loginStatus);
-
-         // Validate user input
-        switch (loginStatus) {
-            case "admin":
-                 // Login successful, display welcome message
+        if (loggedUser != null) {
+            if (loggedUser instanceof Admin) {
                 userView().displayAdminOptions();
-                break;
-            case "error":
-                // Login failed, display error message
-                userView().displayErrorMessage("Invalid credentials");
-                break;
-            default:
-                // Login successful, display welcome message
+            } else if (loggedUser instanceof Patient) {
                 userView().displayUserOptions();
-                break;
+            }
+        }else {
+            userView().displayErrorMessage("Invalid email or password.");
         }
-
-
     }
 
 
