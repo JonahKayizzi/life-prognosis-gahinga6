@@ -1,8 +1,11 @@
 package com.prognosis.cli.service;
 
+import java.util.UUID;
+
 import com.prognosis.cli.model.Admin;
 import com.prognosis.cli.model.Patient;
 import com.prognosis.cli.model.User;
+import com.prognosis.cli.model.User.Role;
 import com.prognosis.cli.utils.BashRunner;
 
 public class UserService {
@@ -32,4 +35,21 @@ public class UserService {
         }
         return null;
     }
+
+    public Patient createPatient(String email) {
+        Integer usersCount = this.countUsers();
+        String nextUserId = (++usersCount).toString();
+        String code = UUID.randomUUID().toString();
+
+        String[] args = { nextUserId, Role.PATIENT.toString(), email, code };
+        this.bashRunner.execute("create_user.sh", args);
+        return new Patient(nextUserId, email, Role.PATIENT.toString(), code);
+    }
+
+    public Integer countUsers(){
+        String output = this.bashRunner.execute("count_users.sh", null);
+        // System.out.println(output);
+        Integer numOfUsers = Integer.valueOf(output.trim());
+        return numOfUsers;
+      }
 }

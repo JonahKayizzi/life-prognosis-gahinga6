@@ -1,6 +1,5 @@
 package com.prognosis.cli;
 
-import com.prognosis.cli.controller.PatientController;
 import com.prognosis.cli.controller.UserController;
 
 public class App {
@@ -9,11 +8,10 @@ public class App {
         app.welcomeMenu();
         do {
             UserController userController = new UserController();
-            PatientController patientController = new PatientController();
             int choice = Integer.parseInt(System.console().readLine());
             switch (choice) {
-                case 1 -> userController.login();
-                case 2 -> patientController.registerUser();
+                case 1 -> userController.handleLogin();
+                case 2 -> userController.registerUser();
                 case 3 -> System.exit(0);
                 default -> System.out.println("Invalid choice");
             }

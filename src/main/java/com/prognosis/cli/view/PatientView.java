@@ -36,11 +36,6 @@ public class PatientView implements UserView {
         return System.console().readLine();
     }
 
-    public String promptCode() {
-        System.out.println("Enter your code:");
-        return System.console().readLine();
-    }
-
     public String promptDateOfBirth() {
         System.out.println("Enter your date of birth:");
         return System.console().readLine();

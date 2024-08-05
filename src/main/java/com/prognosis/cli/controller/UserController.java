@@ -31,6 +31,17 @@ public class UserController {
         }
     }
 
+    public void registerUser() {
+        String email = promptUserEmail();
+        User createdPatient = userService.createPatient(email);
+        if (createdPatient != null) {
+            System.out.println(createdPatient.email + " created successfully");
+            System.out.println("With code " + createdPatient.code);
+        } else {
+            System.out.println("User creation failed");
+        }
+    }
+
     public String promptUserEmail() {
         System.out.println("Enter your email:");
         return System.console().readLine();
@@ -41,6 +52,9 @@ public class UserController {
         return new String(System.console().readPassword());
     }
 
-
+    public String promptCode() {
+        System.out.println("Enter your code:");
+        return System.console().readLine();
+    }
 
 }
