@@ -2,8 +2,8 @@ package com.prognosis.cli.model;
 import java.util.List;
 
 public class Admin extends User {    
-    public Admin(String id, Role role, String email, String code, String password) {
-        super(id, role, email, code, password);
+    public Admin(String id, String email, String code, String password) {
+        super(id, Role.ADMIN, email, code, password);
     }
 
     private void ExportReport(List<User> users) {
