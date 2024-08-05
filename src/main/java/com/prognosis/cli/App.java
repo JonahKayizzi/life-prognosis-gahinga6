@@ -11,7 +11,7 @@ public class App {
             int choice = Integer.parseInt(System.console().readLine());
             switch (choice) {
                 case 1 -> userController.handleLogin();
-                case 2 -> userController.registerUser();
+                case 2 -> userController.createrUser();
                 case 3 -> System.exit(0);
                 default -> System.out.println("Invalid choice");
             }
