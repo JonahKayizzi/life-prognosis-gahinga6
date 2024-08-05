@@ -1,18 +1,38 @@
 package com.prognosis.cli.view;
 
-public class PatientView {
-    public String promptEmail() {
+import java.util.Scanner;
+
+public class PatientView implements UserView {
+
+    @Override
+    public void displayMenu() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("1. View Profile");
+            System.out.println("2. Update Profile");
+            System.out.println("3. Download iCalendar");
+            System.out.println("4. Exit");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1 -> System.out.println("Viewing profile...");
+                case 2 -> System.out.println("Updating profile...");
+                case 3 -> System.out.println("Downloading iCalendar...");
+                case 4 -> {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
+                default -> System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    public String promptUserEmail() {
         System.out.println("Enter your email:");
         return System.console().readLine();
     }
 
-    public String promptCode() {
-        System.out.println("Enter your code:");
-        return System.console().readLine();
-    }
-
-    public String promptPassword() {
-        System.out.println("Enter your Password:");
+    public String promptUserPassword() {
+        System.out.println("Enter your password:");
         return new String(System.console().readPassword());
     }
 
@@ -23,6 +43,11 @@ public class PatientView {
 
     public String promptLastName() {
         System.out.println("Enter your last name:");
+        return System.console().readLine();
+    }
+
+    public String promptCode() {
+        System.out.println("Enter your code:");
         return System.console().readLine();
     }
 
@@ -55,5 +80,14 @@ public class PatientView {
     public String promptCountry() {
         System.out.println("Enter your country of residence:");
         return System.console().readLine();
+    }
+
+    public void displayCode(String code) {
+        System.out.println(String.format("Use this code to register: %s", code));
+    }
+
+    @Override
+    public void displayErrorMessage(String message) {
+        System.out.println(message);
     }
 }
