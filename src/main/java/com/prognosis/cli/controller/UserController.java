@@ -31,7 +31,7 @@ public class UserController {
         }
     }
 
-    public void registerUser() {
+    public void createrUser() {
         String email = promptUserEmail();
         User createdPatient = userService.createPatient(email);
         if (createdPatient != null) {
@@ -39,6 +39,46 @@ public class UserController {
             System.out.println("With code " + createdPatient.code);
         } else {
             System.out.println("User creation failed");
+        }
+    }
+
+    public void registerPatientProfile() {
+        String email = promptUserEmail();
+        String code = promptCode();
+        
+        Patient verifiedPatient = userService.verifyPatient(email, code);
+        if (verifiedPatient != null) {
+            System.out.println("Your account has been verified successfully");
+            System.out.println("Enter the following details");
+            String firstName = promptFirstName();
+            verifiedPatient.firstName = firstName;
+            String lastName = promptLastName();
+            verifiedPatient.lastName = lastName;
+            String dateOfBirth = promptDateOfBirth();
+            verifiedPatient.dateOfBirth = dateOfBirth;
+            String hivStatus = promptHivStatus();
+            if (hivStatus.equalsIgnoreCase("yes")) {
+                verifiedPatient.hivStatus = true;
+                String dateOfDiagnosis = promptDateOfDiagnosis();
+                verifiedPatient.dateOfDiagnosis = dateOfDiagnosis;
+                String isOnART = promptIsOnART();
+                if (isOnART.equalsIgnoreCase("yes")) {
+                    verifiedPatient.isOnART = true;
+                    String artStartDate = promptArtStartDate();
+                    verifiedPatient.artStartDate = artStartDate;
+                }else {
+                    verifiedPatient.isOnART = false;
+                }
+            }else {
+                verifiedPatient.hivStatus = false;
+            }
+            String country = promptCountry();
+            verifiedPatient.country = country;
+            userService.updatePatientDetails(verifiedPatient);
+            PatientView patientView = new PatientView();
+            patientView.displayMenu();
+        }else {
+            System.out.println("Verification failed, contact admin");
         }
     }
 
@@ -54,6 +94,47 @@ public class UserController {
 
     public String promptCode() {
         System.out.println("Enter your code:");
+        return System.console().readLine();
+    }
+
+    public String promptFirstName() {
+        System.out.println("Enter your first name:");
+        return System.console().readLine();
+    }
+
+    public String promptLastName() {
+        System.out.println("Enter your last name:");
+        return System.console().readLine();
+    }
+
+    public String promptDateOfBirth() {
+        System.out.println("Enter your date of birth:");
+        return System.console().readLine();
+    }
+
+    public String promptHivStatus() {
+        System.out.println("Are you HIV positive:");
+        return System.console().readLine();
+    }
+
+    public String promptDateOfDiagnosis() {
+        System.out.println("Enter your date of diagnosis:");
+        return System.console().readLine();
+    }
+
+
+    public String promptIsOnART() {
+        System.out.println("Are you taking anti retro viral drugs:");
+        return System.console().readLine();
+    }
+
+    public String promptArtStartDate() {
+        System.out.println("Enter the date you started taking  anti retro viral drugs:");
+        return System.console().readLine();
+    }
+
+    public String promptCountry() {
+        System.out.println("Enter your country of residence:");
         return System.console().readLine();
     }
 
