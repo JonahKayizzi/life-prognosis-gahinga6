@@ -46,6 +46,20 @@ public class UserService {
         return new Patient(nextUserId, email, Role.PATIENT.toString(), code);
     }
 
+    public Patient verifyPatient(String email, String code) {
+        String[] args = { email, code };
+        String output = this.bashRunner.execute("verify_user.sh", args);
+        if (output != null){
+            return new Patient(output, email, Role.PATIENT.toString(), code);
+        }
+        return null;
+    }
+
+    public void updatePatientDetails(Patient patient) {
+        String[] args = { patient.id, patient.firstName, patient.lastName, patient.dateOfBirth, patient.hivStatus.toString(), patient.dateOfDiagnosis, patient.isOnART.toString(), patient.artStartDate, patient.country };
+        this.bashRunner.execute("update_patient_details.sh", args);
+    }
+
     public Integer countUsers(){
         String output = this.bashRunner.execute("count_users.sh", null);
         // System.out.println(output);
