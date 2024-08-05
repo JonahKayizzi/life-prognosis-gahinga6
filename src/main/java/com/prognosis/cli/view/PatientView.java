@@ -26,16 +26,6 @@ public class PatientView implements UserView {
         }
     }
 
-    public String promptUserEmail() {
-        System.out.println("Enter your email:");
-        return System.console().readLine();
-    }
-
-    public String promptUserPassword() {
-        System.out.println("Enter your password:");
-        return new String(System.console().readPassword());
-    }
-
     public String promptFirstName() {
         System.out.println("Enter your first name:");
         return System.console().readLine();

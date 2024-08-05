@@ -4,30 +4,41 @@ import com.prognosis.cli.model.Admin;
 import com.prognosis.cli.model.Patient;
 import com.prognosis.cli.model.User;
 import com.prognosis.cli.service.UserService;
+import com.prognosis.cli.view.AdminView;
+import com.prognosis.cli.view.PatientView;
 import com.prognosis.cli.view.UserView;
 
 public class UserController {
     
-    UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
-    private UserView userView() {
-        return new UserView();
-    }
-
-    public void login() {  
-        String email = userView().promptUserEmail();
-        String password = userView().promptUserPassword();
+    public void handleLogin() {  
+        String email = promptUserEmail();
+        String password = promptUserPassword();
         User loggedUser = userService.loginUser(email, password);
 
         if (loggedUser != null) {
+            UserView userView;
             if (loggedUser instanceof Admin) {
-                userView().displayAdminOptions();
+                userView = new AdminView();
+                userView.displayMenu();
             } else if (loggedUser instanceof Patient) {
-                userView().displayUserOptions();
+                userView = new PatientView();
+                userView.displayMenu();
             }
         }else {
-            userView().displayErrorMessage("Invalid email or password.");
+            System.out.println("Invalid credentials");
         }
+    }
+
+    public String promptUserEmail() {
+        System.out.println("Enter your email:");
+        return System.console().readLine();
+    }
+
+    public String promptUserPassword() {
+        System.out.println("Enter your password:");
+        return new String(System.console().readPassword());
     }
 
 
