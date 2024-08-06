@@ -1,8 +1,15 @@
 package com.prognosis.cli.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.prognosis.cli.model.Admin;
 import com.prognosis.cli.model.Patient;
 import com.prognosis.cli.model.User;
+import com.prognosis.cli.model.Patient.HIVStatus;
 import com.prognosis.cli.service.UserService;
 import com.prognosis.cli.view.AdminView;
 import com.prognosis.cli.view.PatientView;
@@ -56,21 +63,17 @@ public class UserController {
             verifiedPatient.lastName = lastName;
             String dateOfBirth = promptDateOfBirth();
             verifiedPatient.dateOfBirth = dateOfBirth;
-            String hivStatus = promptHivStatus();
-            if (hivStatus.equalsIgnoreCase("yes")) {
-                verifiedPatient.hivStatus = true;
+            HIVStatus hivStatus = promptHivStatus();
+            if (HIVStatus.POSITIVE == hivStatus) {
+                verifiedPatient.hivStatus = hivStatus;
                 String dateOfDiagnosis = promptDateOfDiagnosis();
                 verifiedPatient.dateOfDiagnosis = dateOfDiagnosis;
                 String isOnART = promptIsOnART();
+                verifiedPatient.isOnART = isOnART; 
                 if (isOnART.equalsIgnoreCase("yes")) {
-                    verifiedPatient.isOnART = true;
                     String artStartDate = promptArtStartDate();
                     verifiedPatient.artStartDate = artStartDate;
-                }else {
-                    verifiedPatient.isOnART = false;
                 }
-            }else {
-                verifiedPatient.hivStatus = false;
             }
             String country = promptCountry();
             verifiedPatient.country = country;
@@ -83,8 +86,24 @@ public class UserController {
     }
 
     public String promptUserEmail() {
+        String email = null;
+        
         System.out.println("Enter your email:");
-        return System.console().readLine();
+        Boolean isValid = false;
+        do {
+            email =  System.console().readLine();
+            String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+            Pattern pattern = Pattern.compile(regex);
+
+            Matcher matcher = pattern.matcher(email);
+            isValid = matcher.matches();
+
+            if(!isValid){
+                System.out.println("Validation failed. Please use a proper email address");
+            }
+        } while (email == null); 
+
+        return email;
     }
 
     public String promptUserPassword() {
@@ -108,29 +127,115 @@ public class UserController {
     }
 
     public String promptDateOfBirth() {
+        String dateString = "";
+        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
         System.out.println("Enter your date of birth:");
-        return System.console().readLine();
+        Boolean isValid = false;
+        do {
+            try {
+                dateString =  System.console().readLine();
+                LocalDate parsedDate = LocalDate.parse(dateString, formatter);
+
+                if(parsedDate.isAfter(LocalDate.now())) {
+                    System.out.println("Validation failed. Birthdate should be in the past.");
+                }else{
+                    isValid = true;
+                }
+            } catch (DateTimeParseException e){
+                System.out.println("Validation failed. Please use \"MM/dd/yyyy\" format");
+            }
+        } while (!isValid); 
+
+
+        return dateString;
     }
 
-    public String promptHivStatus() {
-        System.out.println("Are you HIV positive:");
-        return System.console().readLine();
+    public HIVStatus promptHivStatus() {
+        System.out.println("Are you HIV positive: (Yes/No)");
+        HIVStatus hivStatus = null;
+        
+        do {
+            String hivStatusString = System.console().readLine();
+            if(hivStatusString.toLowerCase().equals("yes")) {
+                hivStatus = HIVStatus.POSITIVE;
+            } else if (hivStatusString.toLowerCase().equals("no")) {
+                hivStatus = HIVStatus.NEGATIVE;
+            } else {
+                System.out.println("Validation failed. Please enter \"Yes\" or \"No\"");
+            }
+        } while (hivStatus == null); 
+
+        return hivStatus;
     }
 
     public String promptDateOfDiagnosis() {
+        String dateString = "";
+        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        
         System.out.println("Enter your date of diagnosis:");
-        return System.console().readLine();
+        Boolean isValid = false;
+        do {
+            try {
+                dateString =  System.console().readLine();
+                LocalDate parsedDate = LocalDate.parse(dateString, formatter);
+
+                if(parsedDate.isAfter(LocalDate.now())) {
+                    System.out.println("Validation failed. Date of diagnosis should be in the past.");
+                }else{
+                    isValid = true;
+                }
+            } catch (DateTimeParseException e){
+                System.out.println("Validation failed. Please use \"MM/dd/yyyy\" format");
+            }
+        } while (!isValid); 
+
+
+        return dateString;
     }
 
 
     public String promptIsOnART() {
-        System.out.println("Are you taking anti retro viral drugs:");
-        return System.console().readLine();
+        System.out.println("Are you taking anti retro viral drugs: (Yes/No)");
+        String isOnArt = null;
+        
+        do {
+            String isOnArtString = System.console().readLine().toLowerCase();
+            if(isOnArtString.equals("yes")) {
+                isOnArt = isOnArtString;
+            } else if (isOnArtString.equals("no")) {
+                isOnArt = isOnArtString;
+            } else {
+                System.out.println("Validation failed. Please enter \"Yes\" or \"No\"");
+            }
+        } while (isOnArt == null); 
+
+        return isOnArt;
     }
 
     public String promptArtStartDate() {
+        String dateString = "";
+        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        
         System.out.println("Enter the date you started taking  anti retro viral drugs:");
-        return System.console().readLine();
+        Boolean isValid = false;
+        do {
+            try {
+                dateString =  System.console().readLine();
+                LocalDate parsedDate = LocalDate.parse(dateString, formatter);
+
+                if(parsedDate.isAfter(LocalDate.now())) {
+                    System.out.println("Validation failed. Date should be in the past.");
+                }else{
+                    isValid = true;
+                }
+            } catch (DateTimeParseException e){
+                System.out.println("Validation failed. Please use \"MM/dd/yyyy\" format");
+            }
+        } while (!isValid); 
+
+
+        return dateString;
     }
 
     public String promptCountry() {
