@@ -9,10 +9,10 @@ import com.prognosis.cli.view.PatientView;
 import com.prognosis.cli.view.UserView;
 
 public class UserController {
-    
+
     private final UserService userService = new UserService();
 
-    public void handleLogin() {  
+    public void handleLogin() {
         String email = promptUserEmail();
         String password = promptUserPassword();
         User loggedUser = userService.loginUser(email, password);
@@ -26,7 +26,7 @@ public class UserController {
                 userView = new PatientView();
                 userView.displayMenu();
             }
-        }else {
+        } else {
             System.out.println("Invalid credentials");
         }
     }
@@ -35,6 +35,8 @@ public class UserController {
         String email = promptUserEmail();
         User createdPatient = userService.createPatient(email);
         if (createdPatient != null) {
+            System.out.println(createdPatient.id);
+            System.out.println(createdPatient.role);
             System.out.println(createdPatient.email + " created successfully");
             System.out.println("With code " + createdPatient.code);
         } else {
@@ -45,11 +47,13 @@ public class UserController {
     public void registerPatientProfile() {
         String email = promptUserEmail();
         String code = promptCode();
-        
+
         Patient verifiedPatient = userService.verifyPatient(email, code);
         if (verifiedPatient != null) {
             System.out.println("Your account has been verified successfully");
             System.out.println("Enter the following details");
+            String password = promptUserPassword();
+            verifiedPatient.password = password;
             String firstName = promptFirstName();
             verifiedPatient.firstName = firstName;
             String lastName = promptLastName();
@@ -66,10 +70,10 @@ public class UserController {
                     verifiedPatient.isOnART = true;
                     String artStartDate = promptArtStartDate();
                     verifiedPatient.artStartDate = artStartDate;
-                }else {
+                } else {
                     verifiedPatient.isOnART = false;
                 }
-            }else {
+            } else {
                 verifiedPatient.hivStatus = false;
             }
             String country = promptCountry();
@@ -77,7 +81,7 @@ public class UserController {
             userService.updatePatientDetails(verifiedPatient);
             PatientView patientView = new PatientView();
             patientView.displayMenu();
-        }else {
+        } else {
             System.out.println("Verification failed, contact admin");
         }
     }
@@ -121,7 +125,6 @@ public class UserController {
         System.out.println("Enter your date of diagnosis:");
         return System.console().readLine();
     }
-
 
     public String promptIsOnART() {
         System.out.println("Are you taking anti retro viral drugs:");

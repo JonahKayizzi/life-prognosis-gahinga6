@@ -8,7 +8,7 @@ public class Patient extends User {
     public String artStartDate;
     public String country;
 
-    public Patient(String id, String email, String code, String password) {
-        super(id, Role.PATIENT, email, code, password);
+    public Patient(String id, String email, String code) {
+        super(id, Role.PATIENT, email, code);
     }
 }

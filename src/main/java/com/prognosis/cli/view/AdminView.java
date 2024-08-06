@@ -2,7 +2,10 @@ package com.prognosis.cli.view;
 
 import java.util.Scanner;
 
+import com.prognosis.cli.controller.UserController;
+
 public class AdminView implements UserView {
+    private final UserController userController = new UserController();
 
     @Override
     public void displayMenu() {
@@ -14,7 +17,7 @@ public class AdminView implements UserView {
             System.out.println("4. Exit");
             int choice = scanner.nextInt();
             switch (choice) {
-                case 1 -> System.out.println("Registering new user...");
+                case 1 -> userController.createrUser();
                 case 2 -> System.out.println("Downloading patient information...");
                 case 3 -> System.out.println("Downloading analysis report...");
                 case 4 -> {
