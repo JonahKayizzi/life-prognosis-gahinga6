@@ -40,4 +40,11 @@ public class PatientController {
         patientService.registerUser(patient);
         System.exit(0);
     }
+
+    public void viewProfile(){
+        Patient patient =  new Patient(null, null, null, null, null, null, null, "07/13/2000", "false", null, null, null, "Ethiopia");
+        Float expectedDateOfDeath = patientService.calculateLifeSpan(patient);
+        
+        System.out.println(expectedDateOfDeath);
+    }
 }
