@@ -13,6 +13,6 @@ public class Patient extends User {
     }
 
     public Patient(String id, String email, String code, String password) {
-        super(id, Role.PATIENT, email, code, password);
+        super(id, Role.PATIENT, email, code);
     }
 }

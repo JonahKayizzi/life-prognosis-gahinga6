@@ -10,7 +10,7 @@ import com.prognosis.cli.utils.BashRunner;
 
 public class UserService {
     private final BashRunner bashRunner = new BashRunner();
-    public User loginUser(String username, String password) {
+    public User loginUser(String email, String password) {
         // Implement actual user validation logic
         try {
             // Execute the login_user method from the user_login.sh script
@@ -23,9 +23,9 @@ public class UserService {
 
             // Check the role of the user
             if (role.equalsIgnoreCase("admin")) {
-                return new Admin(userId, username, "ADMIN", password);
+                return new Admin(userId, email, password);
             } else if (role.equalsIgnoreCase("patient")) {
-                return new Patient(userId, username, "PATIENT", password);
+                return new Patient(userId, email, password);
             } else {
                 return null;
             }
@@ -43,26 +43,25 @@ public class UserService {
 
         String[] args = { nextUserId, Role.PATIENT.toString(), email, code };
         this.bashRunner.execute("create_user.sh", args);
-        return new Patient(nextUserId, email, Role.PATIENT.toString(), code);
+        return new Patient(nextUserId, email, code);
     }
 
     public Patient verifyPatient(String email, String code) {
         String[] args = { email, code };
         String output = this.bashRunner.execute("verify_user.sh", args);
         if (output != null){
-            return new Patient(output, email, Role.PATIENT.toString(), code);
+            return new Patient(output, email, code);
         }
         return null;
     }
 
     public void updatePatientDetails(Patient patient) {
-        String[] args = { patient.id, patient.firstName, patient.lastName, patient.dateOfBirth, patient.hivStatus.toString(), patient.dateOfDiagnosis, patient.isOnART.toString(), patient.artStartDate, patient.country };
-        this.bashRunner.execute("update_patient_details.sh", args);
+        String[] args = { patient.password, patient.firstName, patient.lastName, patient.dateOfBirth, patient.hivStatus.toString(), patient.dateOfDiagnosis, patient.isOnART.toString(), patient.artStartDate, patient.country, patient.id };
+        this.bashRunner.execute("register_patient.sh", args);
     }
 
     public Integer countUsers(){
         String output = this.bashRunner.execute("count_users.sh", null);
-        // System.out.println(output);
         Integer numOfUsers = Integer.valueOf(output.trim());
         return numOfUsers;
       }

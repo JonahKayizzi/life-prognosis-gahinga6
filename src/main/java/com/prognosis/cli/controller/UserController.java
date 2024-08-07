@@ -1,14 +1,13 @@
 package com.prognosis.cli.controller;
 
+import com.prognosis.cli.model.Admin;
+import com.prognosis.cli.model.Patient;
+import com.prognosis.cli.model.User;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.prognosis.cli.model.Admin;
-import com.prognosis.cli.model.Patient;
-import com.prognosis.cli.model.User;
 import com.prognosis.cli.model.Patient.HIVStatus;
 import com.prognosis.cli.service.UserService;
 import com.prognosis.cli.view.AdminView;
@@ -16,10 +15,10 @@ import com.prognosis.cli.view.PatientView;
 import com.prognosis.cli.view.UserView;
 
 public class UserController {
-    
+
     private final UserService userService = new UserService();
 
-    public void handleLogin() {  
+    public void handleLogin() {
         String email = promptUserEmail();
         String password = promptUserPassword();
         User loggedUser = userService.loginUser(email, password);
@@ -33,7 +32,7 @@ public class UserController {
                 userView = new PatientView();
                 userView.displayMenu();
             }
-        }else {
+        } else {
             System.out.println("Invalid credentials");
         }
     }
@@ -52,11 +51,13 @@ public class UserController {
     public void registerPatientProfile() {
         String email = promptUserEmail();
         String code = promptCode();
-        
+
         Patient verifiedPatient = userService.verifyPatient(email, code);
         if (verifiedPatient != null) {
             System.out.println("Your account has been verified successfully");
             System.out.println("Enter the following details");
+            String password = promptUserPassword();
+            verifiedPatient.password = password;
             String firstName = promptFirstName();
             verifiedPatient.firstName = firstName;
             String lastName = promptLastName();
@@ -80,7 +81,7 @@ public class UserController {
             userService.updatePatientDetails(verifiedPatient);
             PatientView patientView = new PatientView();
             patientView.displayMenu();
-        }else {
+        } else {
             System.out.println("Verification failed, contact admin");
         }
     }

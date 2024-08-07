@@ -16,12 +16,11 @@ public abstract class User {
     public String firstName;
     public String lastName;
 
-    public User(String id, Role role, String email, String code, String password) {
+    public User(String id, Role role, String email, String code) {
         this.id = id;
         this.role = role;
         this.email = email;
         this.code = code;
-        this.password = password;
     }
 
     public void displayMenu(UserView userView) {}

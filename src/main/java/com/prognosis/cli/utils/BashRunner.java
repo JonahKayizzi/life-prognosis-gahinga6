@@ -48,20 +48,6 @@ public class BashRunner {
             e.printStackTrace();
         }
         
-        // try{       
-        //     ProcessBuilder processBuilder = new ProcessBuilder();
-        //     processBuilder.command("bash", "-c", String.format("%s/scripts/%s %s",System.getProperty("user.dir"), fileName, args[0],  args[1],  args[2] ));
-
-        //     Process process = processBuilder.start();
-
-        //     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        //     line = this.parseOutput(reader);
-           
-        //     process.waitFor();
-        // } catch  (Exception e) {
-        //     e.printStackTrace();
-        // }
-
         return line;
     }  
 }
