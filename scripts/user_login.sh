@@ -4,7 +4,7 @@
 email=$1
 password=$2
 #hash password for before checking user records
-hashed_password=$(openssl passwd -1 -salt "salt" "$password")
+hashed_password=$(openssl passwd -1 -salt "$salt" "$password")
 escaped_password=$(echo "$hashed_password" | sed 's/\$/\\$/g')
 # return the record matching the supplied email and password
 user_record=$(grep "$email.*$escaped_password" "$PWD/user-store.txt")
