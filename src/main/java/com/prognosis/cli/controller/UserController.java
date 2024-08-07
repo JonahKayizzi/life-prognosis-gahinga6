@@ -123,15 +123,18 @@ public class UserController {
         System.out.println("Enter your email:");
         Boolean isValid = false;
         do {
-            email =  System.console().readLine();
+            String tempEmail =  System.console().readLine();
             String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
             Pattern pattern = Pattern.compile(regex);
 
-            Matcher matcher = pattern.matcher(email);
+            Matcher matcher = pattern.matcher(tempEmail);
             isValid = matcher.matches();
 
-            if(!isValid){
+            if(isValid) {
+                email = tempEmail;
+            } else {
                 System.out.println("Validation failed. Please use a proper email address");
+
             }
         } while (email == null); 
 
@@ -280,5 +283,11 @@ public class UserController {
         userService.logout();
         System.exit(0);
     }
+
+    public void viewProfile() {
+        User user =  userService.getProfile();
+        System.out.println(user.email);
+    }
+
 
 }
