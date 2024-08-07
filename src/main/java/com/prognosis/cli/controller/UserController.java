@@ -117,6 +117,33 @@ public class UserController {
         }
     }
 
+    // Implement the updateProfile method
+    public void updateProfile() {
+        Patient patientToUpdate = userService.getCurrentPatient();
+        // Prompt the user for other details to be updated
+        patientToUpdate.password = updateField("password", patientToUpdate.password);
+        patientToUpdate.firstName = updateField("first name", patientToUpdate.firstName);
+        patientToUpdate.lastName = updateField("last name", patientToUpdate.lastName);
+        patientToUpdate.dateOfBirth = updateField("date of birth", patientToUpdate.dateOfBirth);
+        patientToUpdate.hivStatus = Boolean.parseBoolean(updateField("HIV status", patientToUpdate.hivStatus.toString()));
+        patientToUpdate.dateOfDiagnosis = updateField("date of diagnosis", patientToUpdate.dateOfDiagnosis);
+        patientToUpdate.isOnART = Boolean.parseBoolean(updateField("is on ART", patientToUpdate.isOnART.toString()));
+        patientToUpdate.artStartDate = updateField("ART start date", patientToUpdate.artStartDate);
+        patientToUpdate.country = updateField("country", patientToUpdate.country);
+        userService.updatePatientDetails(patientToUpdate);
+    }
+
+    public String updateField(String field, String value) {
+        // Prompt the user for other details to be updated
+        System.out.println("Enter new " + field + " if you wish to change from: " + value + "(Type 'next' if none) : ");
+        String response = System.console().readLine();
+        if (response.equalsIgnoreCase("next")) {
+            return value;
+        }else{
+            return response;
+        }
+    }
+
     public String promptUserEmail() {
         String email = null;
         
