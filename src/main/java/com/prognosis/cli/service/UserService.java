@@ -65,4 +65,8 @@ public class UserService {
         Integer numOfUsers = Integer.valueOf(output.trim());
         return numOfUsers;
       }
+
+    public void logout(){
+        this.bashRunner.execute("logout.sh", null);
+    }
 }
