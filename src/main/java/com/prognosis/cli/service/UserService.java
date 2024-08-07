@@ -20,12 +20,14 @@ public class UserService {
             String[] parts = output.split(" ");
             String userId = parts[0];
             String role = parts[1];
+            String email = parts[2];
+            String code = parts[3];
 
             // Check the role of the user
             if (role.equalsIgnoreCase("admin")) {
-                return new Admin(userId, username, password);
+                return new Admin(userId, email, code);
             } else if (role.equalsIgnoreCase("patient")) {
-                return new Patient(userId, username, password);
+                return new Patient(userId, email, code);
             } else {
                 return null;
             }
