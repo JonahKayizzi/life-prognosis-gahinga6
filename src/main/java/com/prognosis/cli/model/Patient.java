@@ -1,5 +1,6 @@
 package com.prognosis.cli.model;
 
+// Import the User class
 public class Patient extends User {
     public String dateOfBirth;
     public HIVStatus hivStatus;
@@ -12,7 +13,8 @@ public class Patient extends User {
         POSITIVE, NEGATIVE
     }
 
-    public Patient(String id, String email, String code, String password) {
+    // Constructor
+    public Patient(String id, String email, String code) {
         super(id, Role.PATIENT, email, code);
     }
 }
