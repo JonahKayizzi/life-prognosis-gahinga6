@@ -15,13 +15,12 @@ public class UserService {
     public User loginUser(String email, String password) {
         try {
             // Execute the login_user method from the user_login.sh script
-            String output = this.bashRunner.execute("user_login.sh", new String[]{username, password});
+            String output = this.bashRunner.execute("user_login.sh", new String[]{email, password});
 
             // Split the output into an array of strings
             String[] parts = output.split(" ");
             String userId = parts[0];
             String role = parts[1];
-            String email = parts[2];
             String code = parts[3];
 
             // Check the role of the user
