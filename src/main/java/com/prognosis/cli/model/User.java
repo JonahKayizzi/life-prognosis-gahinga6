@@ -2,12 +2,15 @@ package com.prognosis.cli.model;
 
 import com.prognosis.cli.view.UserView;
 
+// Abstract class for User
 public abstract class User {
 
+    // Enum for Role
     public enum Role {
         ADMIN, PATIENT
     }
 
+    // Properties
     public String id;
     public Role role;
     public String email;
@@ -16,6 +19,7 @@ public abstract class User {
     public String firstName;
     public String lastName;
 
+    // Constructor
     public User(String id, Role role, String email, String code) {
         this.id = id;
         this.role = role;
@@ -23,5 +27,6 @@ public abstract class User {
         this.code = code;
     }
 
+    // Abstract method for displaying menu
     public void displayMenu(UserView userView) {}
 }
