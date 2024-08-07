@@ -25,6 +25,7 @@ public class UserController {
             } else if (loggedUser instanceof Patient) {
                 userView = new PatientView();
                 userView.displayMenu();
+
             }
         } else {
             System.out.println("Invalid credentials");
@@ -139,6 +140,12 @@ public class UserController {
     public String promptCountry() {
         System.out.println("Enter your country of residence:");
         return System.console().readLine();
+    }
+
+    public void logout() {
+        System.out.println("Exiting...");
+        userService.logout();
+        System.exit(0);
     }
 
 }
