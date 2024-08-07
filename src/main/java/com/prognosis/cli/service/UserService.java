@@ -12,7 +12,7 @@ public class UserService {
     // Create an instance of the BashRunner class
     private final BashRunner bashRunner = new BashRunner();
     // Implement the loginUser method
-    public User loginUser(String email, String password) {
+    public User loginUser(String username, String password) {
         try {
             // Execute the login_user method from the user_login.sh script
             String output = this.bashRunner.execute("user_login.sh", new String[]{username, password});
