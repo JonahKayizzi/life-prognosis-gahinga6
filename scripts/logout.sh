@@ -1,0 +1,1 @@
+echo "" > "$PWD/session-storage.txt"

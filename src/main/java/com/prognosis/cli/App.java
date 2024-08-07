@@ -12,7 +12,7 @@ public class App {
             switch (choice) {
                 case 1 -> userController.handleLogin();
                 case 2 -> userController.registerPatientProfile();
-                case 3 -> System.exit(0);
+                case 3 -> userController.logout();
                 default -> System.out.println("Invalid choice");
             }
         } while (true);
