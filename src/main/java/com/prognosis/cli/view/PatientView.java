@@ -17,7 +17,7 @@ public class PatientView implements UserView {
             System.out.println("4. Exit");
             int choice = scanner.nextInt();
             switch (choice) {
-                case 1 -> System.out.println("Viewing profile...");
+                case 1 -> userController.viewProfile();
                 case 2 -> System.out.println("Updating profile...");
                 case 3 -> System.out.println("Downloading iCalendar...");
                 case 4 -> userController.logout();

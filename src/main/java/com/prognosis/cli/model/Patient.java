@@ -3,11 +3,15 @@ package com.prognosis.cli.model;
 // Import the User class
 public class Patient extends User {
     public String dateOfBirth;
-    public Boolean hivStatus;
+    public HIVStatus hivStatus;
     public String dateOfDiagnosis;
-    public Boolean isOnART;
+    public String isOnART;
     public String artStartDate;
     public String country;
+
+    public enum HIVStatus {
+        POSITIVE, NEGATIVE
+    }
 
     // Constructor
     public Patient(String id, String email, String code) {

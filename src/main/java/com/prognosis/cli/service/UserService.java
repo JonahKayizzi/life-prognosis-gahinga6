@@ -12,26 +12,30 @@ public class UserService {
     // Create an instance of the BashRunner class
     private final BashRunner bashRunner = new BashRunner();
     // Implement the loginUser method
+    
+    private User initUser(String output){
+        String[] parts = output.split(" ");
+        String userId = parts[0];
+        String role = parts[1];
+        String email = parts[2];
+        String code = parts[3];
+
+        // Check the role of the user
+        if (role.equalsIgnoreCase("admin")) {
+            return new Admin(userId, email, code);
+        } else if (role.equalsIgnoreCase("patient")) {
+            return new Patient(userId, email, code);
+        } else {
+            return null;
+        }
+    }
+
     public User loginUser(String username, String password) {
         try {
             // Execute the login_user method from the user_login.sh script
             String output = this.bashRunner.execute("user_login.sh", new String[]{username, password});
+            return this.initUser(output);
 
-            // Split the output into an array of strings
-            String[] parts = output.split(" ");
-            String userId = parts[0];
-            String role = parts[1];
-            String email = parts[2];
-            String code = parts[3];
-
-            // Check the role of the user
-            if (role.equalsIgnoreCase("admin")) {
-                return new Admin(userId, email, code);
-            } else if (role.equalsIgnoreCase("patient")) {
-                return new Patient(userId, email, code);
-            } else {
-                return null;
-            }
         } catch (Exception e) {
             // Handle exception
             System.err.println("Error executing script: " + e.getMessage());
@@ -93,5 +97,10 @@ public class UserService {
     public void logout(){
         // Execute the logout.sh script to empty the session storage
         this.bashRunner.execute("logout.sh", null);
+    }
+
+    public User getProfile() {
+       String output = this.bashRunner.execute("get_profile.sh", null);
+       return this.initUser(output);
     }
 }
