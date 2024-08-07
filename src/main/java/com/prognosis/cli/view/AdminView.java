@@ -6,6 +6,7 @@ import com.prognosis.cli.controller.UserController;
 
 public class AdminView implements UserView {
     private final UserController userController = new UserController();
+    
 
     @Override
     public void displayMenu() {
@@ -20,10 +21,7 @@ public class AdminView implements UserView {
                 case 1 -> userController.createrUser();
                 case 2 -> System.out.println("Downloading patient information...");
                 case 3 -> System.out.println("Downloading analysis report...");
-                case 4 -> {
-                    System.out.println("Exiting...");
-                    System.exit(0);
-                }
+                case 4 -> userController.logout();
                 default -> System.out.println("Invalid choice");
             }
         }

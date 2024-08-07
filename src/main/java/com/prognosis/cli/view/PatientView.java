@@ -2,7 +2,10 @@ package com.prognosis.cli.view;
 
 import java.util.Scanner;
 
+import com.prognosis.cli.controller.UserController;
+
 public class PatientView implements UserView {
+    UserController userController = new UserController();
 
     @Override
     public void displayMenu() {
@@ -17,10 +20,7 @@ public class PatientView implements UserView {
                 case 1 -> System.out.println("Viewing profile...");
                 case 2 -> System.out.println("Updating profile...");
                 case 3 -> System.out.println("Downloading iCalendar...");
-                case 4 -> {
-                    System.out.println("Exiting...");
-                    System.exit(0);
-                }
+                case 4 -> userController.logout();
                 default -> System.out.println("Invalid choice");
             }
         }
