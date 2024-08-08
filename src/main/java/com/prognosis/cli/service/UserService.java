@@ -1,5 +1,8 @@
 package com.prognosis.cli.service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import com.prognosis.cli.model.Admin;
@@ -112,6 +115,57 @@ public class UserService {
 
     public User getProfile() {
        String output = this.bashRunner.execute("get_profile.sh", null);
-       return this.initUser(output);
+       User user =  this.initUser(output);
+
+       if(user instanceof Patient){
+            Patient patient = (Patient) user;
+            Float remainingLifeSpan = this.calculateLifeSpan(patient);
+            patient.remainingLifeSpan = remainingLifeSpan;
+
+            return patient;
+       }
+
+       return user;
+    }
+
+     private Float getLifeExpectancy(String country){
+        String[] args = { country };
+        String expectedLifeExpectancyInString =  this.bashRunner.execute("get-country-life-expectancy.sh", args);
+        Float expectedLifeExpectancy =  Float.parseFloat(expectedLifeExpectancyInString);
+        return expectedLifeExpectancy;
+    }
+
+    private Float calculateTimeSince(String time){
+        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate parsedDate = LocalDate.parse(time, formatter);
+        LocalDate now = LocalDate.now();
+
+        return (float) Period.between(parsedDate, now).getYears();
+    }
+
+    private Integer calculateTimeBetween(String startTime, String endTime){
+        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate parsedStartDate = LocalDate.parse(startTime, formatter);
+        LocalDate parsedEndDate = LocalDate.parse(endTime, formatter);
+
+        return Period.between(parsedStartDate, parsedEndDate).getYears();
+    }
+
+    public Float calculateLifeSpan(Patient patient) {
+        Float expectedLifeExpectancy = this.getLifeExpectancy(patient.country);
+        Float remainingTime =  expectedLifeExpectancy - this.calculateTimeSince(patient.dateOfBirth);
+        
+        if(patient.hivStatus == HIVStatus.NEGATIVE) {
+           return remainingTime;
+        }
+
+        if(patient.isOnART == "false"){
+            Float calculateTimeAfterDiagnosis = this.calculateTimeSince(patient.dateOfDiagnosis);
+            return Math.min(remainingTime, 5 - calculateTimeAfterDiagnosis) ;
+        }
+
+        Integer timeSince = this.calculateTimeBetween(patient.dateOfDiagnosis, patient.artStartDate);
+
+        return (float)(remainingTime * Math.pow(0.9, 1+timeSince));
     }
 }
