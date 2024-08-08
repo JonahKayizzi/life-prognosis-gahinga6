@@ -169,4 +169,11 @@ public class UserService {
 
         return (float)(remainingTime * Math.pow(0.9, 1+timeSince));
     }
+
+    public Boolean checkIfCountryCodeIsValid(String countryCode){
+        String[] args =  { countryCode };
+        String output = this.bashRunner.execute("check_if_country_exists.sh", args);
+
+        return output.trim().equals("1");
+    }
 }
