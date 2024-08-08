@@ -18,13 +18,16 @@ public class UserService {
     // Implement the loginUser method
     
     private User initUser(String output){
-        System.out.println(output);
-
         String[] parts = output.split(" ");
         String userId = parts[0];
         String role = parts[1];
         String email = parts[2];
         String code = parts[3];
+
+        if(role.equalsIgnoreCase("admin")){
+            return new Admin(userId, email, code);
+        } 
+
         String firstName = parts[4];
         String lastName = parts[5];
         String dateOfBirth = parts[6];
@@ -35,9 +38,7 @@ public class UserService {
         String artStartDate = parts[11];
 
         // Check the role of the user
-        if (role.equalsIgnoreCase("admin")) {
-            return new Admin(userId, email, code);
-        } else if (role.equalsIgnoreCase("patient")) {
+        if (role.equalsIgnoreCase("patient")) {
             return new Patient(userId, email, code,firstName, lastName, dateOfBirth, hivStatus, dateOfDiagnosis, isOnArt, artStartDate, country);
         } else {
             return null;
@@ -167,6 +168,13 @@ public class UserService {
         Integer timeSince = this.calculateTimeBetween(patient.dateOfDiagnosis, patient.artStartDate);
 
         return (float)(remainingTime * Math.pow(0.9, 1+timeSince));
+    }
+
+    public Boolean checkIfCountryCodeIsValid(String countryCode){
+        String[] args =  { countryCode };
+        String output = this.bashRunner.execute("check_if_country_exists.sh", args);
+
+        return output.trim().equals("1");
     }
 
     public User exportDataToCSV() {

@@ -274,8 +274,26 @@ public class UserController {
     }
 
     public String promptCountry() {
-        System.out.println("Enter your country of residence:");
-        return System.console().readLine();
+        System.out.println("Enter your country's code");
+
+        String country = "";
+        
+        Boolean isValid = false;
+        do {
+            String tempCountry =  System.console().readLine();
+
+            if(tempCountry.length() != 3) {
+                System.out.println("Validation failed. Country code should be 3 characters");
+            } else if(!userService.checkIfCountryCodeIsValid(tempCountry)){
+                System.out.println("Validation failed. Not a valid country code");
+            } else {
+                country = tempCountry;
+                isValid = true;
+            }
+        } while (!isValid); 
+
+        return country;
+
     }
 
     public void logout() {

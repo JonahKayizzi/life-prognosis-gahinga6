@@ -1,3 +1,3 @@
-Type, Email, Code, First Name, Last Name, DoB, HIV Status, Country, Diagnosis Date, On ART, ART Start Date
-PATIENT, tom@gmail.com, 66e7b9ce-8148-4bb3-8baf-29a38c0a1618, thomas, mesfin, 12/12/2000, NEGATIVE, ethiopia, null, no, null, 
-PATIENT, thomas@gmail.com, beb680d8-8d24-4675-81ee-236bdc2702e4, thomas, mesfin, 12/22/2000, NEGATIVE, ethiopia, null, no, null, 
+Type, Email, First Name, Last Name, DoB, HIV Status, Country, Diagnosis Date, On ART, ART Start Date
+PATIENT,tom@gmail.com,thomas,mesfin,12/12/2000,NEGATIVE,ethiopia,null,no,null
+PATIENT,thomas@gmail.com,thomas,mesfin,02/20/2000,POSITIVE,ETH,02/24/2022,yes,02/12/2023
