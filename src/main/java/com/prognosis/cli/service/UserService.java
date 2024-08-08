@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.prognosis.cli.model.Admin;
 import com.prognosis.cli.model.Patient;
 import com.prognosis.cli.model.User;
+import com.prognosis.cli.model.Patient.HIVStatus;
 import com.prognosis.cli.model.User.Role;
 import com.prognosis.cli.utils.BashRunner;
 
@@ -14,17 +15,27 @@ public class UserService {
     // Implement the loginUser method
     
     private User initUser(String output){
+        System.out.println(output);
+
         String[] parts = output.split(" ");
         String userId = parts[0];
         String role = parts[1];
         String email = parts[2];
         String code = parts[3];
+        String firstName = parts[4];
+        String lastName = parts[5];
+        String dateOfBirth = parts[6];
+        String hivStatus = parts[7];
+        String country = parts[8];
+        String dateOfDiagnosis = parts[9];
+        String isOnArt = parts[10];
+        String artStartDate = parts[11];
 
         // Check the role of the user
         if (role.equalsIgnoreCase("admin")) {
             return new Admin(userId, email, code);
         } else if (role.equalsIgnoreCase("patient")) {
-            return new Patient(userId, email, code);
+            return new Patient(userId, email, code,firstName, lastName, dateOfBirth, hivStatus, dateOfDiagnosis, isOnArt, artStartDate, country);
         } else {
             return null;
         }

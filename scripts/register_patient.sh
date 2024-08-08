@@ -30,15 +30,14 @@ BEGIN { FS=OFS=" " }
 {
     if ($1 == user_id) {
         $5 = stored_hashed_password
-        $6 = user_type
-        $7 = first_name
-        $8 = last_name 
-        $9 = dob
-        $10 = hiv_status
-        $11 = country
-        $12 = diagnosis_date
-        $13 = on_art
-        $14 = art_start_date
+        $6 = first_name
+        $7 = last_name 
+        $8 = dob
+        $9 = hiv_status
+        $10 = country
+        $11 = diagnosis_date
+        $12 = on_art
+        $13 = art_start_date
     }
 
     print 
