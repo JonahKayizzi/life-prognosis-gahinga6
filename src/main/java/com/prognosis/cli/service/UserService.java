@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import com.prognosis.cli.model.Admin;
 import com.prognosis.cli.model.Patient;
-import com.prognosis.cli.model.User;
 import com.prognosis.cli.model.Patient.HIVStatus;
+import com.prognosis.cli.model.User;
 import com.prognosis.cli.model.User.Role;
 import com.prognosis.cli.utils.BashRunner;
 
@@ -93,7 +93,7 @@ public class UserService {
     // Implement the updatePatientDetails method
     public void updatePatientDetails(Patient patient) {
         // Generate an array of arguments for the update_patient.sh script
-        String[] args = { patient.password, patient.firstName, patient.lastName, patient.dateOfBirth, patient.hivStatus.toString(), patient.dateOfDiagnosis, patient.isOnART.toString(), patient.artStartDate, patient.country, patient.id };
+        String[] args = { patient.password, patient.firstName, patient.lastName, patient.dateOfBirth, patient.hivStatus.toString(), patient.dateOfDiagnosis, patient.isOnART, patient.artStartDate, patient.country, patient.id };
         // Execute the update_patient.sh script
         this.bashRunner.execute("register_patient.sh", args);
     }

@@ -1,14 +1,15 @@
 package com.prognosis.cli.controller;
 
-import com.prognosis.cli.model.Admin;
-import com.prognosis.cli.model.Patient;
-import com.prognosis.cli.model.User;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.prognosis.cli.model.Admin;
+import com.prognosis.cli.model.Patient;
 import com.prognosis.cli.model.Patient.HIVStatus;
+import com.prognosis.cli.model.User;
 import com.prognosis.cli.service.UserService;
 import com.prognosis.cli.view.AdminView;
 import com.prognosis.cli.view.PatientView;
@@ -125,9 +126,13 @@ public class UserController {
         patientToUpdate.firstName = updateField("first name", patientToUpdate.firstName);
         patientToUpdate.lastName = updateField("last name", patientToUpdate.lastName);
         patientToUpdate.dateOfBirth = updateField("date of birth", patientToUpdate.dateOfBirth);
-        patientToUpdate.hivStatus = Boolean.parseBoolean(updateField("HIV status", patientToUpdate.hivStatus.toString()));
+        if(updateField("HIV status", patientToUpdate.hivStatus.toString()).toLowerCase().equals("yes")) {
+            patientToUpdate.hivStatus = HIVStatus.POSITIVE;
+        } else {
+            patientToUpdate.hivStatus = HIVStatus.NEGATIVE;
+        }
         patientToUpdate.dateOfDiagnosis = updateField("date of diagnosis", patientToUpdate.dateOfDiagnosis);
-        patientToUpdate.isOnART = Boolean.parseBoolean(updateField("is on ART", patientToUpdate.isOnART.toString()));
+        patientToUpdate.isOnART = updateField("is on ART", patientToUpdate.isOnART);
         patientToUpdate.artStartDate = updateField("ART start date", patientToUpdate.artStartDate);
         patientToUpdate.country = updateField("country", patientToUpdate.country);
         userService.updatePatientDetails(patientToUpdate);
