@@ -176,4 +176,16 @@ public class UserService {
 
         return output.trim().equals("1");
     }
+
+    public User exportDataToCSV() {
+        try {
+            // Execute the exportDataToCSV method from the user_login.sh script
+            String output = this.bashRunner.execute("data-store-csv.sh", null);
+        } catch (Exception e) {
+            // Handle exception
+            System.err.println("Error executing script: " + e.getMessage());
+        }
+        return null;
+    }
+
 }

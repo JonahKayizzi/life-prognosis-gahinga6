@@ -19,7 +19,7 @@ public class AdminView implements UserView {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1 -> userController.createrUser();
-                case 2 -> System.out.println("Downloading patient information...");
+                case 2 -> userController.downloadCSV();
                 case 3 -> System.out.println("Downloading analysis report...");
                 case 4 -> userController.logout();
                 default -> System.out.println("Invalid choice");

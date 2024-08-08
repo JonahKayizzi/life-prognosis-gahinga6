@@ -322,5 +322,11 @@ public class UserController {
         }
     }
 
+    public void downloadCSV() {
+        System.out.println("downloading.....");
+        userService.exportDataToCSV();
+        System.out.println("downloaded successfully");
+    }
+
 
 }

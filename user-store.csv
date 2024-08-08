@@ -1,0 +1,3 @@
+Type, Email, First Name, Last Name, DoB, HIV Status, Country, Diagnosis Date, On ART, ART Start Date
+PATIENT,tom@gmail.com,thomas,mesfin,12/12/2000,NEGATIVE,ethiopia,null,no,null
+PATIENT,thomas@gmail.com,thomas,mesfin,02/20/2000,POSITIVE,ETH,02/24/2022,yes,02/12/2023

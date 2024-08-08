@@ -1,3 +1,4 @@
 /target/**
 user-store.txt
+user-store.csv
 session-storage.txt

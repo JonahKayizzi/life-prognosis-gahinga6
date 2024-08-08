@@ -11,7 +11,7 @@ fi
 # patient ID to search for
 patient_id="$1"
 
-# Path to the patient info file (adjust as needed)
+# Path to the patient info file
 patient_info_file="~/user-store.txt"
 
 # Search for the patient ID in the file
