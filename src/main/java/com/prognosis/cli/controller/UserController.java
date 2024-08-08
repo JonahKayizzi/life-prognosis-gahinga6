@@ -197,7 +197,7 @@ public class UserController {
         String dateString = "";
         DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        System.out.println("Enter your date of birth:");
+        System.out.println("Enter your date of birth (MM/dd/yyyy):");
         Boolean isValid = false;
         do {
             try {
@@ -240,7 +240,7 @@ public class UserController {
         String dateString = "";
         DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
         
-        System.out.println("Enter your date of diagnosis:");
+        System.out.println("Enter your date of diagnosis (MM/dd/yyyy):");
         Boolean isValid = false;
         do {
             try {
@@ -284,7 +284,7 @@ public class UserController {
         String dateString = "";
         DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
         
-        System.out.println("Enter the date you started taking  anti retro viral drugs:");
+        System.out.println("Enter the date you started taking  anti retro viral drugs (MM/dd/yyyy):");
         Boolean isValid = false;
         do {
             try {

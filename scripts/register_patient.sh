@@ -13,7 +13,6 @@ on_art=$7
 art_start_date=$8
 country=$9
 user_id=${10}
-user_type="PATIENT"
 
 #hash password for storing
 stored_hashed_password=$(openssl passwd -1 -salt "salt" "$password")
