@@ -120,7 +120,8 @@ public class UserController {
 
     // Implement the updateProfile method
     public void updateProfile() {
-        Patient patientToUpdate = userService.getCurrentPatient();
+        User userToUpdate = userService.getProfile();
+        Patient patientToUpdate = (Patient) userToUpdate;
         // Prompt the user for other details to be updated
         patientToUpdate.password = updateField("password", patientToUpdate.password);
         patientToUpdate.firstName = updateField("first name", patientToUpdate.firstName);
