@@ -3,6 +3,7 @@
 #pick email and password from user supplied arguments
 email=$1
 password=$2
+salt="salt"
 #hash password for before checking user records
 hashed_password=$(openssl passwd -1 -salt "$salt" "$password")
 escaped_password=$(echo "$hashed_password" | sed 's/\$/\\$/g')

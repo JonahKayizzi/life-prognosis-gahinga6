@@ -1,4 +1,4 @@
-1 admin admin dsfsdds $1$salt$IEd.dPRrJY41NYnnaBENQ1
+1 ADMIN admin@email.com dsfsdds $1$salt$IEd.dPRrJY41NYnnaBENQ1
 2 PATIENT dfsdfsd 3c642a25-3320-4784-884d-b859a4a264de $1$$LZ6PQVhx1Kjod6RO9Gax71 patient sdfds dfsd dsfsd sdfsd dfsd sdfsd sdfsdfs sdfsd
 3 PATIENT ghvh 2ac0c917-699e-448d-96eb-3422ebb4a694
 4 PATIENT fffff 7f92f594-adc0-4c8e-8982-05988e18dfcd

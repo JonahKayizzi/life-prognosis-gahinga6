@@ -1,1 +1,1 @@
-1 ADMIN admin@life-prognosis.com FD540EC6-D59A-410C-8E00-C1DA56B9DF7C        
+1 ADMIN admin@email.com
