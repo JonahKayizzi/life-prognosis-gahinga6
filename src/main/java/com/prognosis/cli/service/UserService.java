@@ -114,4 +114,16 @@ public class UserService {
        String output = this.bashRunner.execute("get_profile.sh", null);
        return this.initUser(output);
     }
+
+    public User exportDataToCSV() {
+        try {
+            // Execute the exportDataToCSV method from the user_login.sh script
+            String output = this.bashRunner.execute("data-store-csv.sh", null);
+        } catch (Exception e) {
+            // Handle exception
+            System.err.println("Error executing script: " + e.getMessage());
+        }
+        return null;
+    }
+
 }
