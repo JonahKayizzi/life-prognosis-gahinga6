@@ -286,7 +286,21 @@ public class UserController {
 
     public void viewProfile() {
         User user =  userService.getProfile();
-        System.out.println(user.email);
+
+        
+        System.out.println(String.format("First name ----------- %s", user.firstName));
+        System.out.println(String.format("Last name ----------- %s", user.lastName));
+        System.out.println(String.format("Email ----------- %s", user.email));
+
+        if (user instanceof Patient){
+            Patient patient = (Patient) user;
+            System.out.println(String.format("Date of birth ----------- %s", patient.dateOfBirth));
+            System.out.println(String.format("HIV status ----------- %s", patient.hivStatus));
+            System.out.println(String.format("Date of diagnosis ----------- %s", patient.dateOfDiagnosis));
+            System.out.println(String.format("is on ART ----------- %s", patient.isOnART));
+            System.out.println(String.format("ART Start Date ----------- %s", patient.artStartDate));
+            System.out.println(String.format("Country ----------- %s", patient.country));
+        }
     }
 
 
