@@ -1,1 +1,1 @@
-grep -i "$1" "$PWD/life-expectancy.csv" | awk -F ',' '{print $7}'
+awk -F ',' '{print $6, $7}' "$PWD/life-expectancy.csv" | grep -i "$1" | awk -F ' ' '{print $2}'

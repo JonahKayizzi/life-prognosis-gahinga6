@@ -122,7 +122,6 @@ public class UserService {
         User user = this.initUser(output);
         if (user instanceof Patient patient) {
             Float remainingLifeSpan = this.calculateLifeSpan(patient);
-            System.out.println("Remaining life span: " + remainingLifeSpan);
             patient.remainingLifeSpan = remainingLifeSpan;
 
             return patient;
