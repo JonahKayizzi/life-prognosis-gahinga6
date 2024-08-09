@@ -1,1 +1,1 @@
-1 ADMIN admin@life-prognosis.com FD540EC6-D59A-410C-8E00-C1DA56B9DF7C        
+4 PATIENT job@email.com 097e4a37-e973-4f20-a8d6-de73afb435e3 $1$salt$RtVIIl7Pie99XC8IDtg0d1 job wami 12/02/1991 POSITIVE UGA 12/02/2020 yes 11/04/2021

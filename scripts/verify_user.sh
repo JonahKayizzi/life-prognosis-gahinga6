@@ -6,7 +6,7 @@ code=$2
 
 user_store="$PWD/user-store.txt"
 # return the record matching the supplied email and password
-user_record=$(grep "$email.*$code" $user_store)
+user_record=$(grep "$email.$code" $user_store)
 #check if record exits
 if [ -n "$user_record" ]; then 
     user_id=$(echo "$user_record" | awk '{print $1}')

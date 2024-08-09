@@ -1,0 +1,4 @@
+1 ADMIN admin@email.com dsfsdds $1$salt$IEd.dPRrJY41NYnnaBENQ1 null null null null null null null null null
+18 PATIENT jonah@email.com b4e61f75-8d3a-464e-9e7e-369f2572117c $1$salt$Ix0K7gMcCieLMZGthf6yT1 jonah kayizzi 11/02/1991 NEGATIVE UGA null no null
+3 PATIENT jackson@email.com 117cc6ec-5554-4f31-9da8-7af1ade887ef $1$salt$JImMdPp78WzXzPyxpaPxn. jackson mutebi 12/08/1980 NEGATIVE UGA null no null
+4 PATIENT job@email.com 097e4a37-e973-4f20-a8d6-de73afb435e3 $1$salt$RtVIIl7Pie99XC8IDtg0d1 job wami 12/02/1991 POSITIVE UGA 12/02/2020 yes 11/04/2021

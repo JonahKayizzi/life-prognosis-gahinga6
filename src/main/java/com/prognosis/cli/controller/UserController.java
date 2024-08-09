@@ -1,14 +1,15 @@
 package com.prognosis.cli.controller;
 
-import com.prognosis.cli.model.Admin;
-import com.prognosis.cli.model.Patient;
-import com.prognosis.cli.model.User;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.prognosis.cli.model.Admin;
+import com.prognosis.cli.model.Patient;
 import com.prognosis.cli.model.Patient.HIVStatus;
+import com.prognosis.cli.model.User;
 import com.prognosis.cli.service.UserService;
 import com.prognosis.cli.view.AdminView;
 import com.prognosis.cli.view.PatientView;
@@ -26,11 +27,11 @@ public class UserController {
         String password = promptUserPassword();
         // Call the loginUser method from the UserService class
         User loggedUser = userService.loginUser(email, password);
-
         // Check if the user exists
         if (loggedUser != null) {
             // Prepare an instance of the UserView for displaying the menu
             UserView userView;
+            System.out.println("Logged in as: " + loggedUser.email);
             // Check the role of the loggedin user
             if (loggedUser instanceof Admin) {
                 userView = new AdminView();
@@ -45,6 +46,7 @@ public class UserController {
         } else {
             // Display an error message if the user does not exist
             System.out.println("Invalid credentials");
+            this.logout();
         }
     }
 
@@ -96,7 +98,7 @@ public class UserController {
                 String dateOfDiagnosis = promptDateOfDiagnosis();
                 verifiedPatient.dateOfDiagnosis = dateOfDiagnosis;
                 String isOnART = promptIsOnART();
-                verifiedPatient.isOnART = isOnART; 
+                verifiedPatient.isOnART = isOnART;
                 // Check if the patient is on ART and prompt for more details
                 if (isOnART.equalsIgnoreCase("yes")) {
                     String artStartDate = promptArtStartDate();
@@ -114,29 +116,73 @@ public class UserController {
             patientView.displayMenu();
         } else {
             System.out.println("Verification failed, contact admin");
+            this.logout();
+        }
+    }
+
+    // Implement the updateProfile method
+    public void updateProfile() {
+        User userToUpdate = userService.getProfile();
+        Patient patientToUpdate = (Patient) userToUpdate;
+        // Prompt the user for other details to be updated
+        patientToUpdate.password = updatePassword(patientToUpdate.password);
+        patientToUpdate.firstName = updateField("first name", patientToUpdate.firstName);
+        patientToUpdate.lastName = updateField("last name", patientToUpdate.lastName);
+        patientToUpdate.dateOfBirth = updateField("date of birth", patientToUpdate.dateOfBirth);
+        if (updateField("HIV status", patientToUpdate.hivStatus.toString()).toLowerCase().equals("yes")) {
+            patientToUpdate.hivStatus = HIVStatus.POSITIVE;
+        } else {
+            patientToUpdate.hivStatus = HIVStatus.NEGATIVE;
+        }
+        patientToUpdate.dateOfDiagnosis = updateField("date of diagnosis", patientToUpdate.dateOfDiagnosis);
+        patientToUpdate.isOnART = updateField("is on ART", patientToUpdate.isOnART);
+        patientToUpdate.artStartDate = updateField("ART start date", patientToUpdate.artStartDate);
+        patientToUpdate.country = updateField("country", patientToUpdate.country);
+        userService.updatePatientDetails(patientToUpdate);
+    }
+
+    public String updateField(String field, String value) {
+        // Prompt the user for other details to be updated
+        System.out.println("Enter new " + field + " if you wish to change from: " + value + "(Type 'next' if none) : ");
+        String response = System.console().readLine();
+        if (response.equalsIgnoreCase("next")) {
+            return value;
+        } else {
+            return response;
+        }
+    }
+
+    public String updatePassword(String value) {
+        // Prompt the user for other details to be updated
+        System.out.println("Enter new password if you wish to change from: ***** (Type 'next' if none) : ");
+        String response = System.console().readLine();
+        if (response.equalsIgnoreCase("next")) {
+            return value;
+        } else {
+            return response;
         }
     }
 
     public String promptUserEmail() {
         String email = null;
-        
+
         System.out.println("Enter your email:");
         Boolean isValid = false;
         do {
-            String tempEmail =  System.console().readLine();
+            String tempEmail = System.console().readLine();
             String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
             Pattern pattern = Pattern.compile(regex);
 
             Matcher matcher = pattern.matcher(tempEmail);
             isValid = matcher.matches();
 
-            if(isValid) {
+            if (isValid) {
                 email = tempEmail;
             } else {
                 System.out.println("Validation failed. Please use a proper email address");
 
             }
-        } while (email == null); 
+        } while (email == null);
 
         return email;
     }
@@ -163,25 +209,24 @@ public class UserController {
 
     public String promptDateOfBirth() {
         String dateString = "";
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        System.out.println("Enter your date of birth:");
+        System.out.println("Enter your date of birth (MM/dd/yyyy):");
         Boolean isValid = false;
         do {
             try {
-                dateString =  System.console().readLine();
+                dateString = System.console().readLine();
                 LocalDate parsedDate = LocalDate.parse(dateString, formatter);
 
-                if(parsedDate.isAfter(LocalDate.now())) {
+                if (parsedDate.isAfter(LocalDate.now())) {
                     System.out.println("Validation failed. Birthdate should be in the past.");
-                }else{
+                } else {
                     isValid = true;
                 }
-            } catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 System.out.println("Validation failed. Please use \"MM/dd/yyyy\" format");
             }
-        } while (!isValid); 
-
+        } while (!isValid);
 
         return dateString;
     }
@@ -189,86 +234,83 @@ public class UserController {
     public HIVStatus promptHivStatus() {
         System.out.println("Are you HIV positive: (Yes/No)");
         HIVStatus hivStatus = null;
-        
+
         do {
             String hivStatusString = System.console().readLine();
-            if(hivStatusString.toLowerCase().equals("yes")) {
+            if (hivStatusString.toLowerCase().equals("yes")) {
                 hivStatus = HIVStatus.POSITIVE;
             } else if (hivStatusString.toLowerCase().equals("no")) {
                 hivStatus = HIVStatus.NEGATIVE;
             } else {
                 System.out.println("Validation failed. Please enter \"Yes\" or \"No\"");
             }
-        } while (hivStatus == null); 
+        } while (hivStatus == null);
 
         return hivStatus;
     }
 
     public String promptDateOfDiagnosis() {
         String dateString = "";
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        
-        System.out.println("Enter your date of diagnosis:");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        System.out.println("Enter your date of diagnosis (MM/dd/yyyy):");
         Boolean isValid = false;
         do {
             try {
-                dateString =  System.console().readLine();
+                dateString = System.console().readLine();
                 LocalDate parsedDate = LocalDate.parse(dateString, formatter);
 
-                if(parsedDate.isAfter(LocalDate.now())) {
+                if (parsedDate.isAfter(LocalDate.now())) {
                     System.out.println("Validation failed. Date of diagnosis should be in the past.");
-                }else{
+                } else {
                     isValid = true;
                 }
-            } catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 System.out.println("Validation failed. Please use \"MM/dd/yyyy\" format");
             }
-        } while (!isValid); 
-
+        } while (!isValid);
 
         return dateString;
     }
 
-
     public String promptIsOnART() {
         System.out.println("Are you taking anti retro viral drugs: (Yes/No)");
         String isOnArt = null;
-        
+
         do {
             String isOnArtString = System.console().readLine().toLowerCase();
-            if(isOnArtString.equals("yes")) {
+            if (isOnArtString.equals("yes")) {
                 isOnArt = isOnArtString;
             } else if (isOnArtString.equals("no")) {
                 isOnArt = isOnArtString;
             } else {
                 System.out.println("Validation failed. Please enter \"Yes\" or \"No\"");
             }
-        } while (isOnArt == null); 
+        } while (isOnArt == null);
 
         return isOnArt;
     }
 
     public String promptArtStartDate() {
         String dateString = "";
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        
-        System.out.println("Enter the date you started taking  anti retro viral drugs:");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        System.out.println("Enter the date you started taking  anti retro viral drugs (MM/dd/yyyy):");
         Boolean isValid = false;
         do {
             try {
-                dateString =  System.console().readLine();
+                dateString = System.console().readLine();
                 LocalDate parsedDate = LocalDate.parse(dateString, formatter);
 
-                if(parsedDate.isAfter(LocalDate.now())) {
+                if (parsedDate.isAfter(LocalDate.now())) {
                     System.out.println("Validation failed. Date should be in the past.");
-                }else{
+                } else {
                     isValid = true;
                 }
-            } catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 System.out.println("Validation failed. Please use \"MM/dd/yyyy\" format");
             }
-        } while (!isValid); 
-
+        } while (!isValid);
 
         return dateString;
     }
@@ -303,14 +345,13 @@ public class UserController {
     }
 
     public void viewProfile() {
-        User user =  userService.getProfile();
+        User user = userService.getProfile();
 
-        
         System.out.println(String.format("First name ----------- %s", user.firstName));
         System.out.println(String.format("Last name ----------- %s", user.lastName));
         System.out.println(String.format("Email ----------- %s", user.email));
 
-        if (user instanceof Patient){
+        if (user instanceof Patient) {
             Patient patient = (Patient) user;
             System.out.println(String.format("Date of birth ----------- %s", patient.dateOfBirth));
             System.out.println(String.format("HIV status ----------- %s", patient.hivStatus));
