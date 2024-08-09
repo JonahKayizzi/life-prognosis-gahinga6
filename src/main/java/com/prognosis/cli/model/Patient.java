@@ -17,7 +17,7 @@ public class Patient extends User {
         super(id, Role.PATIENT, email, code);
     }
 
-    public Patient(String id, String email, String code, String firstName, String lastName, String dateOfBirth, String hivStatus, String dateOfDiagnosis, String isOnART, String artStartDate, String country) {
+    public Patient(String id, String email, String code, String password, String firstName, String lastName, String dateOfBirth, String hivStatus, String dateOfDiagnosis, String isOnART, String artStartDate, String country) {
         super(id, Role.PATIENT, email, code);
 
         this.firstName = firstName;

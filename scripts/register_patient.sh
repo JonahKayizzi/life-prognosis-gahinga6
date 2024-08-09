@@ -13,6 +13,8 @@ on_art=$7
 art_start_date=$8
 country=$9
 user_id=${10}
+user_email=${11}
+user_code=${12}
 
 #hash password for storing
 stored_hashed_password=$(openssl passwd -1 -salt "salt" "$password")
@@ -41,4 +43,7 @@ BEGIN { FS=OFS=" " }
 
     print 
 }' "$user_store" > temp && mv temp $user_store
+
+echo "$user_id "PATIENT" $user_email $user_code $store_hashed_password $user_first_name $user_last_name $user_dob $user_hiv_status $user_country $user_diagnosis_date $user_is_on_art $user_art_start_date" > "$PWD/session-storage.txt"
+
 
