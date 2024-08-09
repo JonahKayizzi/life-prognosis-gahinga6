@@ -120,9 +120,9 @@ public class UserService {
     public User getProfile() {
         String output = this.bashRunner.execute("get_profile.sh", null);
         User user = this.initUser(output);
-        if (user instanceof Patient) {
-            Patient patient = (Patient) user;
+        if (user instanceof Patient patient) {
             Float remainingLifeSpan = this.calculateLifeSpan(patient);
+            System.out.println("Remaining life span: " + remainingLifeSpan);
             patient.remainingLifeSpan = remainingLifeSpan;
 
             return patient;
