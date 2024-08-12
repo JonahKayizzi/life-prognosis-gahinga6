@@ -197,4 +197,15 @@ public class UserService {
         return output.trim().equals("1");
     }
 
+    public void exportDataToCalendar(Patient patient) {
+        try {
+            // Execute the exportDataToCalendar method from the user_login.sh script
+            String lifeSpan = this.calculateLifeSpan(patient).toString();
+            this.bashRunner.execute("createIcalendar.sh", new String[]{lifeSpan, patient.email});
+        } catch (Exception e) {
+            // Handle exception
+            System.err.println("Error executing script: " + e.getMessage());
+        }
+    }
+
 }
