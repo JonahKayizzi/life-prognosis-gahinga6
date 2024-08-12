@@ -19,7 +19,7 @@ public class PatientView implements UserView {
             switch (choice) {
                 case 1 -> userController.viewProfile();
                 case 2 -> userController.updateProfile();
-                case 3 -> System.out.println("Downloading iCalendar...");
+                case 3 -> userController.downloadCalendar();
                 case 4 -> userController.logout();
                 default -> System.out.println("Invalid choice");
             }

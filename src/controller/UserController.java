@@ -384,4 +384,12 @@ public class UserController {
         userView.welcomeMenu();
     }
 
+    public void downloadCalendar() {
+        System.out.println("downloading.....");
+        User user = userService.getProfile();
+        Patient patient = (Patient) user;
+        userService.exportDataToCalendar(patient);
+        System.out.println("downloaded successfully");
+    }
+
 }
