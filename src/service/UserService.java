@@ -1,16 +1,17 @@
-package com.prognosis.cli.service;
+package service;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-import com.prognosis.cli.model.Admin;
-import com.prognosis.cli.model.Patient;
-import com.prognosis.cli.model.Patient.HIVStatus;
-import com.prognosis.cli.model.User;
-import com.prognosis.cli.model.User.Role;
-import com.prognosis.cli.utils.BashRunner;
+import utils.BashRunner;
+
+import model.Admin;
+import model.Patient;
+import model.Patient.HIVStatus;
+import model.User;
+import model.User.Role;
 
 public class UserService {
 

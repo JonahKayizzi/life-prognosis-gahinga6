@@ -1,4 +1,4 @@
-package com.prognosis.cli.controller;
+package controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,14 +6,14 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.prognosis.cli.model.Admin;
-import com.prognosis.cli.model.Patient;
-import com.prognosis.cli.model.Patient.HIVStatus;
-import com.prognosis.cli.model.User;
-import com.prognosis.cli.service.UserService;
-import com.prognosis.cli.view.AdminView;
-import com.prognosis.cli.view.PatientView;
-import com.prognosis.cli.view.UserView;
+import model.Admin;
+import model.Patient;
+import model.Patient.HIVStatus;
+import model.User;
+import service.UserService;
+import view.AdminView;
+import view.PatientView;
+import view.UserView;
 
 public class UserController {
 
@@ -369,5 +369,9 @@ public class UserController {
         System.out.println("downloaded successfully");
     }
 
+    public void initialize() {
+        UserView userView = new AdminView();
+        userView.welcomeMenu();
+    }
 
 }

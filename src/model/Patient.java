@@ -1,4 +1,4 @@
-package com.prognosis.cli.model;
+package model;
 
 public class Patient extends User {
     public String dateOfBirth;
