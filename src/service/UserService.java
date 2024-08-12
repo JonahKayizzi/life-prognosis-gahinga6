@@ -5,13 +5,12 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-import utils.BashRunner;
-
 import model.Admin;
 import model.Patient;
 import model.Patient.HIVStatus;
 import model.User;
 import model.User.Role;
+import utils.BashRunner;
 
 public class UserService {
 
@@ -190,6 +189,12 @@ public class UserService {
             System.err.println("Error executing script: " + e.getMessage());
         }
         return null;
+    }
+
+    public Boolean checkIfEmailExists(String email){
+        String[] args =  { email };
+        String output = this.bashRunner.execute("verify_email.sh", args);
+        return output.trim().equals("1");
     }
 
 }

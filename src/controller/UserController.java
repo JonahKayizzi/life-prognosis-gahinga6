@@ -52,8 +52,7 @@ public class UserController {
 
     // Implement the createrUser method
     public void createrUser() {
-        // Prompt the user for email
-        String email = promptUserEmail();
+        String email = promptCreationEmail();
         // Call the createPatient method from the UserService class
         User createdPatient = userService.createPatient(email);
         // Check if the user was created successfully
@@ -289,6 +288,17 @@ public class UserController {
         } while (isOnArt == null);
 
         return isOnArt;
+    }
+
+    public String promptCreationEmail(){
+        do { 
+            String email = promptUserEmail();
+            if(userService.checkIfEmailExists(email)){
+                System.out.println("Email already exists. Please use another email");
+            } else {
+                return email;
+            } 
+        } while (true);
     }
 
     public String promptArtStartDate() {
