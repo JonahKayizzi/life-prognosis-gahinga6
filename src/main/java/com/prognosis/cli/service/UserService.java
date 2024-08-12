@@ -18,13 +18,17 @@ public class UserService {
     private final BashRunner bashRunner = new BashRunner();
     // Implement the loginUser method
 
-    private User initUser(String output) {
-        // Split the output string into parts
+    private User initUser(String output){
         String[] parts = output.split(" ");
         String userId = parts[0];
         String role = parts[1];
         String email = parts[2];
         String code = parts[3];
+
+        if(role.equalsIgnoreCase("admin")){
+            return new Admin(userId, email, code);
+        } 
+
         String password = parts[4];
         String firstName = parts[5];
         String lastName = parts[6];
@@ -36,9 +40,7 @@ public class UserService {
         String artStartDate = parts[12];
 
         // Check the role of the user
-        if (role.equalsIgnoreCase("admin")) {
-            return new Admin(userId, email, code);
-        } else if (role.equalsIgnoreCase("patient")) {
+        if (role.equalsIgnoreCase("patient")) {
             return new Patient(userId, email, code, password, firstName, lastName, dateOfBirth, hivStatus, dateOfDiagnosis, isOnArt, artStartDate, country);
         } else {
             return null;
