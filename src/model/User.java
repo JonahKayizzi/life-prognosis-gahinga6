@@ -1,6 +1,6 @@
-package com.prognosis.cli.model;
+package model;
 
-import com.prognosis.cli.view.UserView;
+import view.UserView;
 
 // Abstract class for User
 public abstract class User {

@@ -1,4 +1,4 @@
-package com.prognosis.cli.model;
+package model;
 import java.util.List;
 
 // Import the User class

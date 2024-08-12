@@ -66,7 +66,6 @@ To get a local copy up and running, follow these steps.
 In order to run this project you need:
 
 - Install Java
-- Install maven
 
 ### Setup
 
@@ -83,8 +82,8 @@ Checkout to the main branch, compile the program and package to create a JAR fil
 
 ```sh
 git checkout main
-mvn clean compile
-mvn package
+cd src
+javac Main.java
 ```
 
 ### Usage
@@ -92,7 +91,7 @@ mvn package
 Use Java to run the JAR file
 
 ```sh
- java -jar ./target/cli-1.0-SNAPSHOT.jar
+ java Main
 ```
 
 ### Run tests
@@ -118,9 +117,6 @@ To use it effeciently,
 
 ## 👥 Authors <a name="authors"></a>
 
-@JonahKayizzi
-@tomtom260
-@emmiduh
 👤 **Thomas Mesfin Seleshi**
 
 - GitHub: [@tomtom260](https://github.com/tomtom260)
