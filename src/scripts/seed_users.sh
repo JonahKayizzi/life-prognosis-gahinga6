@@ -1,6 +1,6 @@
 #!/bin/bash
 
-seed_size=50
+seed_size=500
 
 create_admin(){
     salt="salt"
@@ -25,7 +25,7 @@ random_date() {
 }
 
 seed_users(){
-for ((i=1; i<=50; i++))
+for ((i=1; i<=$seed_size; i++))
 do
     echo "seeding [$i/$seed_size] users ..."
     id=$((i+1))
@@ -35,7 +35,7 @@ do
     code=$(uuidgen)
     password=$(openssl passwd -1 -salt "$salt" "password")
     dob="$(random_date 1970 2005)"
-    country=$(shuf -n 1 "$PWD/life-expectancy.csv" | awk -F ',' '{print $6}')
+    country=$(tail -n +2 "$PWD/life-expectancy.csv" |shuf -n 1 | awk -F ',' '{print $(NF-1)}')
 
     hiv_status=$(shuf -n 1 -e "POSITIVE" "NEGATIVE")
 

@@ -213,7 +213,7 @@ public class UserService {
         Float[] survivalRates = new Float[survivalRatesList.size()];
         survivalRates = survivalRatesList.toArray(survivalRates);
 
-        Double average = this.calculateAverage(survivalRates);
+        int average = this.calculateAverage(survivalRates);
         Long percentile10Th = this.calculatePercentile(survivalRates, 15);
         Long percentile25Th = this.calculatePercentile(survivalRates, 25);
         Long percentile50Th = this.calculatePercentile(survivalRates, 50);
@@ -236,12 +236,13 @@ public class UserService {
         }
     }
 
-    private double calculateAverage(Float[] survivalRates) {
+    private int calculateAverage(Float[] survivalRates) {
         int sum = 0;
         for (Float survivalRate : survivalRates) {
             sum += survivalRate;
         }
-        return sum / survivalRates.length;
+
+        return Math.round(sum / survivalRates.length);
     }
 
     public Long calculatePercentile(Float[] survivalRates, int percentile) {

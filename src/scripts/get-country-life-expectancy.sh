@@ -1,1 +1,1 @@
-awk -F ',' '{print $6, $7}' "$PWD/life-expectancy.csv" | grep -i "$1" | awk -F ' ' '{print $2}'
+awk -F ',' '{print $(NF-1), $NF}' "$PWD/life-expectancy.csv" | tail -n +2 | grep -i "$1" | awk -F ' ' '{print $2}'
