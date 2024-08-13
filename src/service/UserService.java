@@ -1,14 +1,14 @@
 package service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.Arrays;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
 
 import model.Admin;
 import model.Patient;
@@ -128,8 +128,10 @@ public class UserService {
         String output = this.bashRunner.execute("get_profile.sh", null);
         User user = this.initUser(output);
         if (user instanceof Patient patient) {
-            Float remainingLifeSpan = this.calculateLifeSpan(patient);
-            patient.remainingLifeSpan = remainingLifeSpan;
+            Long remainingLifeSpan = this.calculateLifeSpan(patient);
+            String dateOfDeath = this.getExpectedDateOfDeath(remainingLifeSpan);
+
+            patient.dateOfDeath = dateOfDeath;
 
             return patient;
         }
@@ -152,6 +154,15 @@ public class UserService {
         return (float) Period.between(parsedDate, now).getYears();
     }
 
+    public String getExpectedDateOfDeath(Long remainingYears) {
+        LocalDate now = LocalDate.now();
+        LocalDate dateOfDeath = now.plusYears(remainingYears);
+
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return dateOfDeath.format(formatter);
+    }
+
     private Integer calculateTimeBetween(String startTime, String endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate parsedStartDate = LocalDate.parse(startTime, formatter);
@@ -160,22 +171,22 @@ public class UserService {
         return Period.between(parsedStartDate, parsedEndDate).getYears();
     }
 
-    public Float calculateLifeSpan(Patient patient) {
+    public long calculateLifeSpan(Patient patient) {
         Float expectedLifeExpectancy = this.getLifeExpectancy(patient.country);
         Float remainingTime = expectedLifeExpectancy - this.calculateTimeSince(patient.dateOfBirth);
 
         if (patient.hivStatus == HIVStatus.NEGATIVE) {
-            return remainingTime;
+            return Math.round(remainingTime);
         }
 
         if (patient.isOnART == "false") {
             Float calculateTimeAfterDiagnosis = this.calculateTimeSince(patient.dateOfDiagnosis);
-            return Math.min(remainingTime, 5 - calculateTimeAfterDiagnosis);
+            return Math.round(Math.min(remainingTime, 5 - calculateTimeAfterDiagnosis));
         }
 
         Integer timeSince = this.calculateTimeBetween(patient.dateOfDiagnosis, patient.artStartDate);
 
-        return (float) (remainingTime * Math.pow(0.9, 1 + timeSince));
+        return Math.round((remainingTime * Math.pow(0.9, 1 + timeSince)));
     }
 
     public Boolean checkIfCountryCodeIsValid(String countryCode) {
@@ -200,12 +211,12 @@ public class UserService {
             // Execute the exportDataToCSV method from the user_login.sh script
             String patientList = this.bashRunner.execute("get_all_users.sh", null);
 
-            List<Float> survivalRatesList
-                    = new ArrayList<Float>();
+            List<Long> survivalRatesList 
+                    = new ArrayList<Long>(); 
 
             for (String p : patientList.split("\n")) {
-                Patient patient = (Patient) this.initUser(p);
-                Float lifespan = this.calculateLifeSpan(patient);
+                Patient patient = (Patient)this.initUser(p);
+                Long lifespan =  this.calculateLifeSpan(patient);
                 survivalRatesList.add(lifespan);
             };
 
@@ -265,8 +276,10 @@ public class UserService {
     public void exportDataToCalendar(Patient patient) {
         try {
             // Execute the exportDataToCalendar method from the user_login.sh script
-            String lifeSpan = this.calculateLifeSpan(patient).toString();
-            this.bashRunner.execute("createIcalendar.sh", new String[]{lifeSpan, patient.email});
+            Long lifeSpan = this.calculateLifeSpan(patient);
+            String[] args = { String.format("%s", lifeSpan),  patient.email };     
+
+            this.bashRunner.execute("createIcalendar.sh", args);
         } catch (Exception e) {
             // Handle exception
             System.err.println("Error executing script: " + e.getMessage());

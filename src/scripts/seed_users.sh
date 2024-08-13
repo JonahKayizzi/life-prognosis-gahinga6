@@ -1,9 +1,9 @@
 #!/bin/bash
 
 seed_size=500
+salt="salt"
 
 create_admin(){
-    salt="salt"
     code=$(uuidgen)
 
     #set static admin password
