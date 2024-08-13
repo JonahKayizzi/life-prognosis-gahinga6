@@ -1,8 +1,7 @@
 package view;
 
-import java.util.Scanner;
-
 import controller.UserController;
+import java.util.Scanner;
 
 public class PatientView implements UserView {
     UserController userController = new UserController();
@@ -11,6 +10,7 @@ public class PatientView implements UserView {
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
+            userController.clearConsole();
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             System.out.println("::  Logged in as Patient !                          ::");
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");

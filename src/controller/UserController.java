@@ -21,6 +21,8 @@ public class UserController {
 
     // Implement the handleLogin method
     public void handleLogin() {
+        clearConsole();
+        consoleHeading("Logging in");
         // Prompt the user for email and password
         String email = promptUserEmail();
         String password = promptUserPassword();
@@ -40,17 +42,17 @@ public class UserController {
                 userView = new PatientView();
                 //Display the patient menu if the user is a patient
                 userView.displayMenu();
-
             }
         } else {
             // Display an error message if the user does not exist
             System.out.println("Invalid credentials");
-            this.logout();
         }
     }
 
     // Implement the createrUser method
     public void createrUser() {
+        clearConsole();
+        consoleHeading("Registering new user");
         String email = promptCreationEmail();
         // Call the createPatient method from the UserService class
         User createdPatient = userService.createPatient(email);
@@ -67,6 +69,8 @@ public class UserController {
 
     // Implement the registerPatientProfile method
     public void registerPatientProfile() {
+        clearConsole();
+        consoleHeading("Registering patient profile");
         // Prompt the user for email and code
         String email = promptUserEmail();
         String code = promptCode();
@@ -120,6 +124,8 @@ public class UserController {
 
     // Implement the updateProfile method
     public void updateProfile() {
+        clearConsole();
+        consoleHeading("Updating profile");
         User userToUpdate = userService.getProfile();
         Patient patientToUpdate = (Patient) userToUpdate;
         // Prompt the user for other details to be updated
@@ -180,7 +186,7 @@ public class UserController {
                 System.out.println("Validation failed. Please use a proper email address");
 
             }
-            
+
         } while (email == null);
 
         return email;
@@ -290,11 +296,11 @@ public class UserController {
         return isOnArt;
     }
 
-    public String promptCreationEmail(){
+    public String promptCreationEmail() {
         UserView userView = new AdminView();
-        do { 
+        do {
             String email = promptUserEmail();
-            if(userService.checkIfEmailExists(email)){
+            if (userService.checkIfEmailExists(email)) {
                 System.out.println("Email already exists. Please use another email");
             } else {
                 return email;
@@ -331,26 +337,28 @@ public class UserController {
         System.out.println("Enter your country's code");
 
         String country = "";
-        
+
         Boolean isValid = false;
         do {
-            String tempCountry =  System.console().readLine();
+            String tempCountry = System.console().readLine();
 
-            if(tempCountry.length() != 3) {
+            if (tempCountry.length() != 3) {
                 System.out.println("Validation failed. Country code should be 3 characters");
-            } else if(!userService.checkIfCountryCodeIsValid(tempCountry)){
+            } else if (!userService.checkIfCountryCodeIsValid(tempCountry)) {
                 System.out.println("Validation failed. Not a valid country code");
             } else {
                 country = tempCountry;
                 isValid = true;
             }
-        } while (!isValid); 
+        } while (!isValid);
 
         return country;
 
     }
 
     public void viewProfile() {
+        clearConsole();
+        consoleHeading("Your patient profile");
         User user = userService.getProfile();
 
         System.out.println(String.format("First name ----------- %s", user.firstName));
@@ -370,14 +378,16 @@ public class UserController {
     }
 
     public void downloadCSV() {
-        System.out.println("downloading.....");
+        clearConsole();
+        consoleHeading("Downloading patient information . . .");
         userService.exportDataToCSV();
-        System.out.println("downloaded successfully");
+        System.out.println("Downloaded successfully");
         UserView userView = new AdminView();
         userView.optOutMenu();
     }
 
     public void initialize() {
+        clearConsole();
         UserView userView = new AdminView();
         userView.welcomeMenu();
     }
@@ -389,13 +399,28 @@ public class UserController {
     }
 
     public void terminate() {
-        System.out.println("Exiting...");
+        clearConsole();
+        consoleHeading("Exiting . . .");
         userService.logout();
+        userService.logout();
+        System.out.println("  ____                 _ _               ");
+        System.out.println(" / ___| ___   ___   __| | |__  _   _  ___ ");
+        System.out.println("| |  _ / _ \\ / _ \\ / _` | '_ \\| | | |/ _ \\");
+        System.out.println("| |_| | (_) | (_) | (_| | |_) | |_| |  __/");
+        System.out.println(" \\____|\\___/ \\___/ \\__,_|_.__/ \\__, |\\___|");
+        System.out.println("                                |___/     ");
+        System.out.println("  ______  ");
+        System.out.println("/        \\ ");
+        System.out.println("|  () ()  |");
+        System.out.println("\\    ^    / ");
+        System.out.println(" \\  \\_/  / ");
+        System.out.println("  \\_____/  ");
         System.exit(0);
     }
 
     public void downloadCalendar() {
-        System.out.println("downloading.....");
+        clearConsole();
+        consoleHeading("Downloading your calendar . . .");
         User user = userService.getProfile();
         Patient patient = (Patient) user;
         userService.exportDataToCalendar(patient);
@@ -407,5 +432,24 @@ public class UserController {
         System.out.println("exporting successfully");
     }
 
+
+    public void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void consoleHeading(String heading) {
+        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+        System.out.println("::  " + heading + "  ");
+        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+    }
 
 }

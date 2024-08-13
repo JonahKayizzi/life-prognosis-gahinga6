@@ -1,8 +1,7 @@
 package view;
 
-import java.util.Scanner;
-
 import controller.UserController;
+import java.util.Scanner;
 
 public class AdminView implements UserView {
 
@@ -12,6 +11,7 @@ public class AdminView implements UserView {
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
+            userController.clearConsole();
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             System.out.println("::  Logged in as Admin !                            ::");
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
@@ -38,16 +38,16 @@ public class AdminView implements UserView {
     public void optOutMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("3. Back");
-            System.out.println("4. Logout");
-            System.out.println("5. Exit");
+            System.out.println("1. Back");
+            System.out.println("2. Logout");
+            System.out.println("3. Exit");
             int choice = scanner.nextInt();
             switch (choice) {
-                case 3 ->
+                case 1 ->
                     displayMenu();
-                case 4 ->
+                case 2 ->
                     userController.logout();
-                case 5 ->
+                case 3 ->
                     userController.terminate();
                 default ->
                     System.out.println("Invalid choice");
