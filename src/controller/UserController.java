@@ -180,6 +180,7 @@ public class UserController {
                 System.out.println("Validation failed. Please use a proper email address");
 
             }
+            
         } while (email == null);
 
         return email;
@@ -290,13 +291,15 @@ public class UserController {
     }
 
     public String promptCreationEmail(){
+        UserView userView = new AdminView();
         do { 
             String email = promptUserEmail();
             if(userService.checkIfEmailExists(email)){
                 System.out.println("Email already exists. Please use another email");
             } else {
                 return email;
-            } 
+            }
+            userView.optOutMenu();
         } while (true);
     }
 
@@ -347,12 +350,6 @@ public class UserController {
 
     }
 
-    public void logout() {
-        System.out.println("Exiting...");
-        userService.logout();
-        System.exit(0);
-    }
-
     public void viewProfile() {
         User user = userService.getProfile();
 
@@ -376,11 +373,25 @@ public class UserController {
         System.out.println("downloading.....");
         userService.exportDataToCSV();
         System.out.println("downloaded successfully");
+        UserView userView = new AdminView();
+        userView.optOutMenu();
     }
 
     public void initialize() {
         UserView userView = new AdminView();
         userView.welcomeMenu();
+    }
+
+    public void logout() {
+        System.out.println("Logging out...");
+        userService.logout();
+        initialize();
+    }
+
+    public void terminate() {
+        System.out.println("Exiting...");
+        userService.logout();
+        System.exit(0);
     }
 
     public void downloadCalendar() {
