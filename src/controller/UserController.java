@@ -366,9 +366,9 @@ public class UserController {
             System.out.println(String.format("HIV status ----------- %s", patient.hivStatus));
             System.out.println(String.format("Date of diagnosis ----------- %s", patient.dateOfDiagnosis));
             System.out.println(String.format("is on ART ----------- %s", patient.isOnART));
-            System.out.println(String.format("ART Start Date ----------- %s", patient.artStartDate));
+            System.out.println(String.format("ART start date ----------- %s", patient.artStartDate));
             System.out.println(String.format("Country ----------- %s", patient.country));
-            System.out.println(String.format("Life expectancy ----------- %s", patient.remainingLifeSpan));
+            System.out.println(String.format("Expected date of death ----------- %s", patient.dateOfDeath));
         }
     }
 

@@ -7,7 +7,7 @@ public class Patient extends User {
     public String isOnART;
     public String artStartDate;
     public String country;
-    public Float remainingLifeSpan;
+    public String dateOfDeath;
 
     public enum HIVStatus {
         POSITIVE, NEGATIVE
