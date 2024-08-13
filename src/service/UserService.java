@@ -23,16 +23,16 @@ public class UserService {
     private final BashRunner bashRunner = new BashRunner();
     // Implement the loginUser method
 
-    private User initUser(String output){
+    private User initUser(String output) {
         String[] parts = output.split(" ");
         String userId = parts[0];
         String role = parts[1];
         String email = parts[2];
         String code = parts[3];
 
-        if(role.equalsIgnoreCase("admin")){
+        if (role.equalsIgnoreCase("admin")) {
             return new Admin(userId, email, code);
-        } 
+        }
 
         String password = parts[4];
         String firstName = parts[5];
@@ -178,8 +178,8 @@ public class UserService {
         return (float) (remainingTime * Math.pow(0.9, 1 + timeSince));
     }
 
-    public Boolean checkIfCountryCodeIsValid(String countryCode){
-        String[] args =  { countryCode };
+    public Boolean checkIfCountryCodeIsValid(String countryCode) {
+        String[] args = {countryCode};
         String output = this.bashRunner.execute("check_if_country_exists.sh", args);
 
         return output.trim().equals("1");
@@ -188,48 +188,47 @@ public class UserService {
     public void exportDataToCSV() {
         try {
             // Execute the exportDataToCSV method from the user_login.sh script
-         this.bashRunner.execute("data-store-csv.sh", null);
+            this.bashRunner.execute("data-store-csv.sh", null);
         } catch (Exception e) {
             // Handle exception
             System.err.println("Error executing script: " + e.getMessage());
         }
     }
 
-
     public void exportAnalytics() {
         try {
             // Execute the exportDataToCSV method from the user_login.sh script
-         String patientList = this.bashRunner.execute("get_all_users.sh", null);
+            String patientList = this.bashRunner.execute("get_all_users.sh", null);
 
-        List<Float> survivalRatesList 
-              = new ArrayList<Float>(); 
+            List<Float> survivalRatesList
+                    = new ArrayList<Float>();
 
-        for (String p : patientList.split("\n")) {
-            Patient patient = (Patient)this.initUser(p);
-            Float lifespan =  this.calculateLifeSpan(patient);
-            survivalRatesList.add(lifespan);
-        };
+            for (String p : patientList.split("\n")) {
+                Patient patient = (Patient) this.initUser(p);
+                Float lifespan = this.calculateLifeSpan(patient);
+                survivalRatesList.add(lifespan);
+            };
 
-        Float[] survivalRates = new Float[survivalRatesList.size()];
-        survivalRates = survivalRatesList.toArray(survivalRates);
+            Float[] survivalRates = new Float[survivalRatesList.size()];
+            survivalRates = survivalRatesList.toArray(survivalRates);
 
-        int average = this.calculateAverage(survivalRates);
-        Long percentile10Th = this.calculatePercentile(survivalRates, 15);
-        Long percentile25Th = this.calculatePercentile(survivalRates, 25);
-        Long percentile50Th = this.calculatePercentile(survivalRates, 50);
-        Long percentile75Th = this.calculatePercentile(survivalRates, 75);
-        Long percentile90Th = this.calculatePercentile(survivalRates, 90);
+            int average = this.calculateAverage(survivalRates);
+            Long percentile10Th = this.calculatePercentile(survivalRates, 15);
+            Long percentile25Th = this.calculatePercentile(survivalRates, 25);
+            Long percentile50Th = this.calculatePercentile(survivalRates, 50);
+            Long percentile75Th = this.calculatePercentile(survivalRates, 75);
+            Long percentile90Th = this.calculatePercentile(survivalRates, 90);
 
-        FileWriter fileWriter =  new FileWriter(String.format("%s/statistics.csv",System.getProperty("user.dir")));
-        BufferedWriter writer = new BufferedWriter(fileWriter);     
+            FileWriter fileWriter = new FileWriter(String.format("%s/statistics.csv", System.getProperty("user.dir")));
+            BufferedWriter writer = new BufferedWriter(fileWriter);
 
-        String title = "Expected Survival Rate Statistics \n";
-        String header = "Average, 10th Percentile, 25th Percentile, 50th Percentile (Median), 75th Percentile, 90th Percentile \n";
-        String content = String.format("%s,%s,%s,%s,%s,%s",average, percentile10Th,percentile25Th,percentile50Th,percentile75Th, percentile90Th);
+            String title = "Expected Survival Rate Statistics \n";
+            String header = "Average, 10th Percentile, 25th Percentile, 50th Percentile (Median), 75th Percentile, 90th Percentile \n";
+            String content = String.format("%s,%s,%s,%s,%s,%s", average, percentile10Th, percentile25Th, percentile50Th, percentile75Th, percentile90Th);
 
-        writer.write(title + header + content);
-        writer.close();
-        
+            writer.write(title + header + content);
+            writer.close();
+
         } catch (Exception e) {
             // Handle exception
             System.err.println("Error executing script: " + e.getMessage());
@@ -257,8 +256,8 @@ public class UserService {
         }
     }
 
-    public Boolean checkIfEmailExists(String email){
-        String[] args =  { email };
+    public Boolean checkIfEmailExists(String email) {
+        String[] args = {email};
         String output = this.bashRunner.execute("verify_email.sh", args);
         return output.trim().equals("1");
     }
@@ -273,5 +272,4 @@ public class UserService {
             System.err.println("Error executing script: " + e.getMessage());
         }
     }
-
 }
