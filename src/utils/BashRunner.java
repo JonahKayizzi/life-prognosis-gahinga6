@@ -23,6 +23,7 @@ public class BashRunner {
         try {
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
+                stringBuilder.append("\n");
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block

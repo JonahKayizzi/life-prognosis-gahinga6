@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import model.Admin;
 import model.Patient;
 import model.Patient.HIVStatus;
@@ -391,5 +390,11 @@ public class UserController {
         userService.exportDataToCalendar(patient);
         System.out.println("downloaded successfully");
     }
+    public void exportAnalytics() {
+        System.out.println("Exporting.....");
+        userService.exportAnalytics();
+        System.out.println("exporting successfully");
+    }
+
 
 }

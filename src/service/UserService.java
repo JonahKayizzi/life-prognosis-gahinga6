@@ -3,7 +3,12 @@ package service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 import model.Admin;
 import model.Patient;
@@ -180,15 +185,76 @@ public class UserService {
         return output.trim().equals("1");
     }
 
-    public User exportDataToCSV() {
+    public void exportDataToCSV() {
         try {
             // Execute the exportDataToCSV method from the user_login.sh script
-            String output = this.bashRunner.execute("data-store-csv.sh", null);
+         this.bashRunner.execute("data-store-csv.sh", null);
         } catch (Exception e) {
             // Handle exception
             System.err.println("Error executing script: " + e.getMessage());
         }
-        return null;
+    }
+
+
+    public void exportAnalytics() {
+        try {
+            // Execute the exportDataToCSV method from the user_login.sh script
+         String patientList = this.bashRunner.execute("get_all_users.sh", null);
+
+        List<Float> survivalRatesList 
+              = new ArrayList<Float>(); 
+
+        for (String p : patientList.split("\n")) {
+            Patient patient = (Patient)this.initUser(p);
+            Float lifespan =  this.calculateLifeSpan(patient);
+            survivalRatesList.add(lifespan);
+        };
+
+        Float[] survivalRates = new Float[survivalRatesList.size()];
+        survivalRates = survivalRatesList.toArray(survivalRates);
+
+        int average = this.calculateAverage(survivalRates);
+        Long percentile10Th = this.calculatePercentile(survivalRates, 15);
+        Long percentile25Th = this.calculatePercentile(survivalRates, 25);
+        Long percentile50Th = this.calculatePercentile(survivalRates, 50);
+        Long percentile75Th = this.calculatePercentile(survivalRates, 75);
+        Long percentile90Th = this.calculatePercentile(survivalRates, 90);
+
+        FileWriter fileWriter =  new FileWriter(String.format("%s/statistics.csv",System.getProperty("user.dir")));
+        BufferedWriter writer = new BufferedWriter(fileWriter);     
+
+        String title = "Expected Survival Rate Statistics \n";
+        String header = "Average, 10th Percentile, 25th Percentile, 50th Percentile (Median), 75th Percentile, 90th Percentile \n";
+        String content = String.format("%s,%s,%s,%s,%s,%s",average, percentile10Th,percentile25Th,percentile50Th,percentile75Th, percentile90Th);
+
+        writer.write(title + header + content);
+        writer.close();
+        
+        } catch (Exception e) {
+            // Handle exception
+            System.err.println("Error executing script: " + e.getMessage());
+        }
+    }
+
+    private int calculateAverage(Float[] survivalRates) {
+        int sum = 0;
+        for (Float survivalRate : survivalRates) {
+            sum += survivalRate;
+        }
+
+        return Math.round(sum / survivalRates.length);
+    }
+
+    public Long calculatePercentile(Float[] survivalRates, int percentile) {
+        Arrays.sort(survivalRates);
+        Double index = (percentile / 100.0) * (survivalRates.length - 1);
+        int lowerIndex = (int) Math.floor(index);
+        int upperIndex = (int) Math.ceil(index);
+        if (lowerIndex == upperIndex) {
+            return (long) Math.round(survivalRates[lowerIndex]);
+        } else {
+            return Math.round(survivalRates[lowerIndex] + (index - lowerIndex) * (survivalRates[upperIndex] - survivalRates[lowerIndex]));
+        }
     }
 
     public Boolean checkIfEmailExists(String email){
