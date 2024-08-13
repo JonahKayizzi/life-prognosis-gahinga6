@@ -1,7 +1,8 @@
 package view;
 
-import controller.UserController;
 import java.util.Scanner;
+
+import controller.UserController;
 
 public class PatientView implements UserView {
     UserController userController = new UserController();

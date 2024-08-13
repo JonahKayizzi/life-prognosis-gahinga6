@@ -1,7 +1,8 @@
 package view;
 
-import controller.UserController;
 import java.util.Scanner;
+
+import controller.UserController;
 
 public class AdminView implements UserView {
 
@@ -29,6 +30,7 @@ public class AdminView implements UserView {
                 case 2 -> userController.downloadCSV();
                 case 3 -> userController.exportAnalytics();
                 case 4 -> userController.logout();
+                case 5 -> userController.terminate();
                 default -> System.out.println("Invalid choice");
             }
         }
