@@ -20,7 +20,7 @@ public class AdminView implements UserView {
             switch (choice) {
                 case 1 -> userController.createrUser();
                 case 2 -> userController.downloadCSV();
-                case 3 -> System.out.println("Downloading analysis report...");
+                case 3 -> userController.exportAnalytics();
                 case 4 -> userController.logout();
                 default -> System.out.println("Invalid choice");
             }

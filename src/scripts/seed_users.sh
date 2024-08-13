@@ -19,8 +19,8 @@ random_date() {
     end_date=$2
 
     random_year=$(shuf -i $start_date-$end_date -n 1)
-    random_month=$(shuf -i 1-12 -n 1)
-    random_day=$(shuf -i 1-28 -n 1)  # to avoid invalid dates
+    random_month=$(shuf -i 10-12 -n 1)
+    random_day=$(shuf -i 10-28 -n 1)  # to avoid invalid dates
     echo "$random_month/$random_day/$random_year"
 }
 
@@ -52,9 +52,11 @@ do
         fi
     else
         date_of_diagnosis=null
+        is_on_art=no
+        art_start_date=null
     fi  
 
-    echo "$id PATIENT $email $code $password $first_name $last_name $dob $country $hiv_status $date_of_diagnosis $is_on_art $art_start_date" >> "$PWD/user-store.txt"
+    echo "$id PATIENT $email $code $password $first_name $last_name $dob $hiv_status $country $date_of_diagnosis $is_on_art $art_start_date" >> "$PWD/user-store.txt"
 done
 }
 
