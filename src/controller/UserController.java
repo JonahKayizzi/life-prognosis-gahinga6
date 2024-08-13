@@ -16,11 +16,13 @@ import view.UserView;
 
 public class UserController {
 
+    private static String[] menuNavigation;
     // Create an instance of the UserService class
     private final UserService userService = new UserService();
 
     // Implement the handleLogin method
     public void handleLogin() {
+        UserController.menuNavigation[1] = "login";
         clearConsole();
         consoleHeading("Logging in");
         // Prompt the user for email and password
@@ -51,6 +53,7 @@ public class UserController {
 
     // Implement the createrUser method
     public void createrUser() {
+        UserController.menuNavigation[2] = "create";
         clearConsole();
         consoleHeading("Registering new user");
         String email = promptCreationEmail();
@@ -387,6 +390,7 @@ public class UserController {
     }
 
     public void initialize() {
+        UserController.menuNavigation[0] = "welcome";
         clearConsole();
         UserView userView = new AdminView();
         userView.welcomeMenu();
