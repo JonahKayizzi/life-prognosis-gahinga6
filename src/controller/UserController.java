@@ -16,6 +16,7 @@ import view.PatientView;
 import view.UserView;
 
 public class UserController {
+
     // Create an instance of the UserService class
     private final UserService userService = new UserService();
 
@@ -360,20 +361,34 @@ public class UserController {
         clearConsole();
         consoleHeading("Your patient profile");
         User user = userService.getProfile();
-
-        System.out.println(String.format("First name ----------- %s", user.firstName));
-        System.out.println(String.format("Last name ----------- %s", user.lastName));
-        System.out.println(String.format("Email ----------- %s", user.email));
+        System.out.println("");
+        System.out.println("");
+        System.out.println("----------------------------------------------------------");
+        System.out.println(String.format("|:: First name              |   %s", user.firstName));
+        System.out.println("----------------------------------------------------------");
+        System.out.println(String.format("|:: Last name               |    %s", user.lastName));
+        System.out.println("----------------------------------------------------------");
+        System.out.println(String.format("|:: Email                   |    %s", user.email));
+        System.out.println("----------------------------------------------------------");
 
         if (user instanceof Patient) {
             Patient patient = (Patient) user;
-            System.out.println(String.format("Date of birth ----------- %s", patient.dateOfBirth));
-            System.out.println(String.format("HIV status ----------- %s", patient.hivStatus));
-            System.out.println(String.format("Date of diagnosis ----------- %s", patient.dateOfDiagnosis));
-            System.out.println(String.format("is on ART ----------- %s", patient.isOnART));
-            System.out.println(String.format("ART start date ----------- %s", patient.artStartDate));
-            System.out.println(String.format("Country ----------- %s", patient.country));
-            System.out.println(String.format("Expected date of death ----------- %s", patient.dateOfDeath));
+            System.out.println(String.format("|:: Date of birth           |     %s", patient.dateOfBirth));
+            System.out.println("----------------------------------------------------------");
+            System.out.println(String.format("|:: HIV status              |     %s", patient.hivStatus));
+            System.out.println("----------------------------------------------------------");
+            System.out.println(String.format("|:: Date of diagnosis       |     %s", patient.dateOfDiagnosis));
+            System.out.println("----------------------------------------------------------");
+            System.out.println(String.format("|:: is on ART               |     %s", patient.isOnART));
+            System.out.println("----------------------------------------------------------");
+            System.out.println(String.format("|:: ART start date          |     %s", patient.artStartDate));
+            System.out.println("----------------------------------------------------------");
+            System.out.println(String.format("|:: Country                 |     %s", patient.country));
+            System.out.println("==========================================================");
+            System.out.println(String.format("|:: Expected date of death  |  ::::::  %s", patient.dateOfDeath + " ::::::"));
+            System.out.println("==========================================================");
+            System.out.println("");
+            System.out.println("");
         }
     }
 
@@ -383,7 +398,7 @@ public class UserController {
         userService.exportDataToCSV();
         System.out.println("Downloaded successfully");
         UserView userView = new AdminView();
-        userView.optOutMenu();
+        //userView.optOutMenu();
     }
 
     public void initialize() {
@@ -426,12 +441,12 @@ public class UserController {
         userService.exportDataToCalendar(patient);
         System.out.println("downloaded successfully");
     }
+
     public void exportAnalytics() {
         System.out.println("Exporting.....");
         userService.exportAnalytics();
         System.out.println("exporting successfully");
     }
-
 
     public void clearConsole() {
         try {
