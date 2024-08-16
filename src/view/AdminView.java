@@ -12,7 +12,7 @@ public class AdminView implements UserView {
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            userController.clearConsole();
+            //userController.clearConsole();
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             System.out.println("::  Logged in as Admin !                            ::");
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
@@ -40,16 +40,18 @@ public class AdminView implements UserView {
     public void optOutMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("1. Back");
-            System.out.println("2. Logout");
-            System.out.println("3. Exit");
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            System.out.println("7. Back");
+            System.out.println("8. Logout");
+            System.out.println("9. Exit");
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             int choice = scanner.nextInt();
             switch (choice) {
-                case 1 ->
+                case 7 ->
                     displayMenu();
-                case 2 ->
+                case 8 ->
                     userController.logout();
-                case 3 ->
+                case 9 ->
                     userController.terminate();
                 default ->
                     System.out.println("Invalid choice");

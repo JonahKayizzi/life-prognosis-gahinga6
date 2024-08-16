@@ -1,8 +1,4 @@
 package model;
-
-import view.UserView;
-
-// Abstract class for User
 public abstract class User {
 
     // Enum for Role
@@ -26,7 +22,4 @@ public abstract class User {
         this.email = email;
         this.code = code;
     }
-
-    // Abstract method for displaying menu
-    public void displayMenu(UserView userView) {}
 }

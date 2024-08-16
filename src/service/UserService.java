@@ -2,11 +2,13 @@ package service;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -148,7 +150,7 @@ public class UserService {
 
     private Float calculateTimeSince(String time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate parsedDate = LocalDate.parse(time, formatter);
+        LocalDate parsedDate = LocalDate.parse(time.trim(), formatter);
         LocalDate now = LocalDate.now();
 
         return (float) Period.between(parsedDate, now).getYears();
@@ -158,15 +160,14 @@ public class UserService {
         LocalDate now = LocalDate.now();
         LocalDate dateOfDeath = now.plusYears(remainingYears);
 
-        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         return dateOfDeath.format(formatter);
     }
 
     private Integer calculateTimeBetween(String startTime, String endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate parsedStartDate = LocalDate.parse(startTime, formatter);
-        LocalDate parsedEndDate = LocalDate.parse(endTime, formatter);
+        LocalDate parsedStartDate = LocalDate.parse(startTime.trim(), formatter);
+        LocalDate parsedEndDate = LocalDate.parse(endTime.trim(), formatter);
 
         return Period.between(parsedStartDate, parsedEndDate).getYears();
     }
@@ -211,17 +212,19 @@ public class UserService {
             // Execute the exportDataToCSV method from the user_login.sh script
             String patientList = this.bashRunner.execute("get_all_users.sh", null);
 
-            List<Long> survivalRatesList 
-                    = new ArrayList<Long>(); 
+            List<Long> survivalRatesList
+                    = new ArrayList<>();
 
             for (String p : patientList.split("\n")) {
-                Patient patient = (Patient)this.initUser(p);
-                Long lifespan =  this.calculateLifeSpan(patient);
+                Patient patient = (Patient) this.initUser(p);
+                Long lifespan = this.calculateLifeSpan(patient);
                 survivalRatesList.add(lifespan);
-            };
+            }
 
             Float[] survivalRates = new Float[survivalRatesList.size()];
-            survivalRates = survivalRatesList.toArray(survivalRates);
+            for (int i = 0; i < survivalRatesList.size(); i++) {
+                survivalRates[i] = survivalRatesList.get(i).floatValue();
+            }
 
             int average = this.calculateAverage(survivalRates);
             Long percentile10Th = this.calculatePercentile(survivalRates, 15);
@@ -242,7 +245,7 @@ public class UserService {
 
         } catch (Exception e) {
             // Handle exception
-            System.err.println("Error executing script: " + e.getMessage());
+            //System.err.println("Error executing script: " + e.getMessage());
         }
     }
 
@@ -274,10 +277,16 @@ public class UserService {
     }
 
     public void exportDataToCalendar(Patient patient) {
+        SimpleDateFormat outputFormatter = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat inputFormatter = new SimpleDateFormat("MM/dd/yyyy");
         try {
             // Execute the exportDataToCalendar method from the user_login.sh script
             Long lifeSpan = this.calculateLifeSpan(patient);
-            String[] args = { String.format("%s", lifeSpan),  patient.email };     
+            String dateOfDeath = this.getExpectedDateOfDeath(lifeSpan);
+            System.out.println(dateOfDeath);
+            Date date = inputFormatter.parse(dateOfDeath);
+            String calendarDate = outputFormatter.format(date);
+            String[] args = {String.format("%s", calendarDate), patient.email};
 
             this.bashRunner.execute("createIcalendar.sh", args);
         } catch (Exception e) {

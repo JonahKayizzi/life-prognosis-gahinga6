@@ -1,6 +1,7 @@
 package model;
 
 public class Patient extends User {
+
     public String dateOfBirth;
     public HIVStatus hivStatus;
     public String dateOfDiagnosis;
@@ -23,7 +24,7 @@ public class Patient extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.hivStatus = hivStatus == "yes" ? HIVStatus.POSITIVE : HIVStatus.NEGATIVE;
+        this.hivStatus = "POSITIVE".equals(hivStatus) ? HIVStatus.POSITIVE : HIVStatus.NEGATIVE;
         this.dateOfDiagnosis = dateOfDiagnosis;
         this.isOnART = isOnART;
         this.artStartDate = artStartDate;

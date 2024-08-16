@@ -11,14 +11,15 @@ public class PatientView implements UserView {
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            userController.clearConsole();
+            //userController.clearConsole();
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             System.out.println("::  Logged in as Patient !                          ::");
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             System.out.println("::  1. View Profile                                 ::");
             System.out.println("::  2. Update Profile                               ::");
             System.out.println("::  3. Download iCalendar                           ::");
-            System.out.println("::  4. Exit                                         ::");
+            System.out.println("::  4. Logout                                       ::");
+            System.out.println("::  5. Exit                                         ::");
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             System.out.println("");
             System.out.println("Enter your choice: ");
@@ -28,6 +29,7 @@ public class PatientView implements UserView {
                 case 2 -> userController.updateProfile();
                 case 3 -> userController.downloadCalendar();
                 case 4 -> userController.logout();
+                case 5 -> userController.terminate();
                 default -> System.out.println("Invalid choice");
             }
         }
@@ -37,15 +39,21 @@ public class PatientView implements UserView {
     public void optOutMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("3. Back");
-            System.out.println("4. Logout");
-            System.out.println("5. Exit");
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            System.out.println("7. Back");
+            System.out.println("8. Logout");
+            System.out.println("9. Exit");
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
             int choice = scanner.nextInt();
             switch (choice) {
-                case 3 -> displayMenu();
-                case 4 -> userController.logout();
-                case 5 -> userController.terminate();
-                default -> System.out.println("Invalid choice");
+                case 7 ->
+                    displayMenu();
+                case 8 ->
+                    userController.logout();
+                case 9 ->
+                    userController.terminate();
+                default ->
+                    System.out.println("Invalid choice");
             }
         }
     }
